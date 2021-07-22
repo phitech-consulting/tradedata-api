@@ -35,13 +35,9 @@ class GetYahooData extends Controller
         $symbols = [
             "DOGEF",
             "SNOW",
-            "SGRE.MC",
             "AKER",
-            "UN01.DE",
             "NEL.OL",
             "ENR.DE",
-            "ENPH",
-            "FSLY",
             "BOX",
             "^AEX",
             "^GSPC",
@@ -58,7 +54,15 @@ class GetYahooData extends Controller
             "RDSA.AS",
             "FAST.AS",
             "BRNL.AS",
-            "APERAM.AS"
+            "APERAM.AS",
+            "UN01.DE",
+            "ORSTED.CO",
+            "SGRE.MC",
+            "ENPH",
+            "FSLY",
+            "BEP",
+            "FSLR",
+            "NEE"
         ];
 
         /* Retrieve data */
@@ -67,6 +71,7 @@ class GetYahooData extends Controller
 
         /* Return view including retrieved data */
         return view ('pages.StocksKeyIndicators', compact('data'));
+//        return view ('pages.StocksKeyIndicators')->with($data); // Preferred, also works with arrays, as shown here
     }
 
 

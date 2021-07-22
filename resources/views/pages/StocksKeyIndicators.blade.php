@@ -20,7 +20,7 @@
                 {{-- Print the actual data --}}
                 <tr>
                     @foreach($quote as $attribute)
-                        <td>{{$attribute}}</td>
+                            <td>{{$attribute['value']}}</td>
                     @endforeach
                 </tr>
             @endforeach
