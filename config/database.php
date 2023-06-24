@@ -48,9 +48,9 @@ return [
             'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'dev_lv1'),
-            'username' => env('DB_USERNAME', 'dev_dev'),
-            'password' => env('DB_PASSWORD', '9OJUq3JURewLGxQee1wV'),
+            'database' => env('DB_DATABASE', 'forge'),
+            'username' => env('DB_USERNAME', 'forge'),
+            'password' => env('DB_PASSWORD', ''),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
@@ -61,6 +61,36 @@ return [
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
+        ],
+
+
+
+        'iex' => [
+            'driver'    => 'mysql',
+            'host'      => env('iex_db_host' . env('iex_environment')),
+            'port'      => '3306',
+            'database'  => env('iex_db_name' . env('iex_environment')),
+            'username'  => env('iex_db_user' . env('iex_environment')),
+            'password'  => env('iex_db_pass' . env('iex_environment')),
+        ],
+
+        'srv4' => [
+            'driver'    => 'mysql',
+            'host'      => env('srv4_db_host'),
+            'port'      => '3306',
+            'database'  => env('srv4_db_name'),
+            'username'  => env('srv4_db_user'),
+            'password'  => env('srv4_db_pass'),
+        ],
+
+        'srv5' => [
+            'driver'    => 'mysql',
+            'host'      => env('srv5_db_host'),
+            'port'      => '3306',
+            'database'  => env('srv5_db_name'),
+            'username'  => env('srv5_db_user'),
+            'password'  => env('srv5_db_pass'),
+            'ssl-verify-server-cert'   => 'true',
         ],
 
         'pgsql' => [
@@ -74,7 +104,7 @@ return [
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
-            'schema' => 'public',
+            'search_path' => 'public',
             'sslmode' => 'prefer',
         ],
 
@@ -89,6 +119,8 @@ return [
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
+            // 'encrypt' => env('DB_ENCRYPT', 'yes'),
+            // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
 
     ],
@@ -129,7 +161,8 @@ return [
         'default' => [
             'url' => env('REDIS_URL'),
             'host' => env('REDIS_HOST', '127.0.0.1'),
-            'password' => env('REDIS_PASSWORD', null),
+            'username' => env('REDIS_USERNAME'),
+            'password' => env('REDIS_PASSWORD'),
             'port' => env('REDIS_PORT', '6379'),
             'database' => env('REDIS_DB', '0'),
         ],
@@ -137,7 +170,8 @@ return [
         'cache' => [
             'url' => env('REDIS_URL'),
             'host' => env('REDIS_HOST', '127.0.0.1'),
-            'password' => env('REDIS_PASSWORD', null),
+            'username' => env('REDIS_USERNAME'),
+            'password' => env('REDIS_PASSWORD'),
             'port' => env('REDIS_PORT', '6379'),
             'database' => env('REDIS_CACHE_DB', '1'),
         ],

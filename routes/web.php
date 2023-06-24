@@ -13,8 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/* Test output pages */
-Route::get('output-yahoo-test', [App\Http\Controllers\YahooAPI::class, 'output_yahoo_page_test']);
-Route::get('stocks-key-indicators', [App\Http\Controllers\GetYahooData::class, 'output_watchlist_key_indicators']);
-Route::get('yahoo-search-symbols', [App\Http\Controllers\GetYahooData::class, 'output_yahoo_symbols']);
+Route::get('/', function () {
+    return view('welcome');
+});
 
+
+Route::get("/test-output-page", "App\Http\Controllers\TestOutputController@index");
+Route::get("/test-store-quotes", "\App\Http\Controllers\TestOutputController@download_quotes_cs");
