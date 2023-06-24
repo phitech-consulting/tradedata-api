@@ -34,6 +34,7 @@ Route::prefix('toolbox')->group(function () {
 
 Route::prefix('iex')->group(function () {
     Route::get('/symbols', [\App\Http\Controllers\IexController::class, 'symbols']);
+    Route::get('/quote', [\App\Http\Controllers\IexController::class, 'get_quote']);
 });
 
 

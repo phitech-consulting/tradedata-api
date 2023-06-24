@@ -21,12 +21,20 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 
+/**
+ * Trigger download process of all symbols. Gets symbols from IEX API (about 12000)
+ * and upserts them to database.
+ */
 Artisan::command('iex:download_symbols', function () {
     $symbol = new \App\Services\SymbolService();
     $symbol->download_iex_symbols();
 })->purpose('Trigger download process of all symbols)');
 
 
+/**
+ * Get and print full quote for one single symbol via IEX (optionally give date as
+ * YYYYMMDD. Does not do any database operations.
+ */
 Artisan::command('iex:get_quote {symbol} {date?}', function ($symbol, $date = null) {
     $quote_service = new \App\Services\StockQuoteService();
     print_r(json_decode($quote_service->get_quote($symbol, $date), true));

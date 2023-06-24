@@ -64,16 +64,6 @@ return [
         ],
 
 
-
-        'iex' => [
-            'driver'    => 'mysql',
-            'host'      => env('iex_db_host' . env('iex_environment')),
-            'port'      => '3306',
-            'database'  => env('iex_db_name' . env('iex_environment')),
-            'username'  => env('iex_db_user' . env('iex_environment')),
-            'password'  => env('iex_db_pass' . env('iex_environment')),
-        ],
-
         'srv4' => [
             'driver'    => 'mysql',
             'host'      => env('srv4_db_host'),

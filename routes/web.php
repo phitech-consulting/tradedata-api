@@ -16,7 +16,3 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
-
-Route::get("/test-output-page", "App\Http\Controllers\TestOutputController@index");
-Route::get("/test-store-quotes", "\App\Http\Controllers\TestOutputController@download_quotes_cs");
