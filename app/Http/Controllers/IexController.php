@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Classes\IexApi;
+use App\Services\SymbolService;
 use Illuminate\Http\Request;
 
 class IexController extends Controller
@@ -14,8 +15,7 @@ class IexController extends Controller
      */
     public function symbols() {
         $iex = new IexApi();
-        $symbols = $iex->get_symbols();
-        return response()->json(json_decode($symbols, true));
+        return response()->json($iex->get_symbols());
     }
 
 

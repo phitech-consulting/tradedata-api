@@ -40,6 +40,8 @@ Route::prefix('iex')->group(function () {
 
 
 
+Route::apiResource('symbol-sets', \App\Http\Controllers\HistoricSymbolSetController::class);
+
 /**
  * Below: The apiResource endpoints make CRUD operations available for other systems.
  * For instance: getting an overview of all symbols, or getting details for one quote.

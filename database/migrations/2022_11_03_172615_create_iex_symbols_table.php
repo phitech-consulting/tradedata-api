@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('iex_symbols', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('symbol', 64)->unique();
+            $table->string('symbol', 64);
             $table->string('exchange', 64);
             $table->string('exchange_suffix', 64);
             $table->string('exchange_name', 64);
