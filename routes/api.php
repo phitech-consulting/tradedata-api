@@ -51,3 +51,9 @@ Route::prefix('symbols')->group(function () {
 
 // All endpoints for Quotes
 Route::apiResource('quotes', \App\Http\Controllers\QuotesController::class);
+
+
+/**
+ *
+ */
+Route::resource('resources/iex-historic-symbol-sets', \App\Http\Controllers\IexHistoricSymbolSetController::class);
