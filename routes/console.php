@@ -22,16 +22,6 @@ Artisan::command('inspire', function () {
 
 
 /**
- * Trigger download process of all symbols. Gets symbols from IEX API (about 12000)
- * and upserts them to database.
- */
-Artisan::command('iex:download_symbols', function () {
-    $symbol = new \App\Services\SymbolService();
-    $symbol->download_iex_symbols();
-})->purpose('Trigger download process of all symbols)');
-
-
-/**
  * Get and print full quote for one single symbol via IEX (optionally give date as
  * YYYYMMDD. Does not do any database operations.
  */
@@ -67,3 +57,28 @@ Artisan::command('srv1', function () {
             echo 'None';
         }
 })->purpose('Test the connection to srv1 database');
+
+
+/**
+ * Command to show current version of Tradedata API.
+ */
+Artisan::command('tda:version', function () {
+    $this->line("\n<options=bold;fg=magenta>" . App\Classes\TdaSelf::get_version() . "</>\n");
+})->purpose('Shows current version of Tradedata API');
+
+
+/**
+ * Command to show metadata about current Tradedata API version.
+ */
+Artisan::command('tda:metadata', function () {
+    echo new App\Classes\TdaSelf;
+})->purpose('Shows metadata about current Tradedata API version');
+
+
+/**
+ * Command to show one specific setting by key.
+ */
+Artisan::command('tda:setting {key}', function ($key) {
+    echo "\n" . $key . " = " . config("tda." . $key) . "\n\n";
+})->purpose('Show one specific TDA setting by key');
+

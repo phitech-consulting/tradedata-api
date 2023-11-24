@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('historic_symbol_sets', function (Blueprint $table) {
+        Schema::create('settings', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->date('date')->unique();
-            $table->longText('metadata');
-            $table->longText('duplicate_figis'); // Stores a gzcompress() of the found FIGI-duplicates in JSON format.
-            $table->longText('symbols'); // Stores a gzcompress() of all symbols in JSON format.
+            $table->string('key')->unique();
+            $table->text('value')->nullable();
+            $table->text('description')->nullable();
+            $table->boolean('active')->default(true);
         });
     }
 
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('historic_symbol_sets');
+        Schema::dropIfExists('settings');
     }
 };

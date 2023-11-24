@@ -15,7 +15,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        if(config('tda.schedule_retrieve_iex_symbol_set') == 1) {
+            $schedule->command('iex:download_symbols')->cron("0 2 * * *");
+        }
     }
 
     /**
