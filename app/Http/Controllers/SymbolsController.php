@@ -2,62 +2,36 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SymbolsRequest;
+use App\Models\HistoricSymbolSet;
 use Illuminate\Http\Request;
 
 class SymbolsController extends Controller
 {
     /**
-     * Get set of symbols.
+     * Get set of Symbols.
      * Endpoint: GET /api/symbols
      * @param Request $request
      * @return mixed
      */
     public function index(Request $request) {
 
+        $symbolSet = HistoricSymbolSet::where('date', $date)->first();
+        dd($symbolSet->symbols);
+        return "To implement.";
     }
 
 
     /**
-     * Create one symbol.
-     * Endpoint: POST /api/symbols
-     * @param Request $request
-     * @return void
-     */
-    public function store(Request $request) {
-
-    }
-
-
-    /**
-     * Get one symbol.
-     * Endpoint: GET /api/symbols/{id}
+     * Get one Symbol.
+     * Endpoint: GET /api/symbols/{}
      * @param $id
      * @return mixed
      */
-    public function show($id) {
+    public function show(SymbolsRequest $request) {
 
+        $validated = $request->validated();
+        dd($request->date);
     }
 
-
-    /**
-     * Update one symbol.
-     * Endpoint: PUT /api/symbols/{id}
-     * @param Request $request
-     * @param $id
-     * @return void
-     */
-    public function update(Request $request, $id) {
-
-    }
-
-
-    /**
-     * Delete one symbol.
-     * Endpoint: DELETE /api/symbols/{id}
-     * @param $id
-     * @return void
-     */
-    public function destroy($id) {
-
-    }
 }

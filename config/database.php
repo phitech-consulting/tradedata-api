@@ -63,33 +63,13 @@ return [
             ]) : [],
         ],
 
-
-
-        'iex' => [
+        'srv1' => [
             'driver'    => 'mysql',
-            'host'      => env('iex_db_host' . env('iex_environment')),
+            'host'      => env('srv1_db_host'),
             'port'      => '3306',
-            'database'  => env('iex_db_name' . env('iex_environment')),
-            'username'  => env('iex_db_user' . env('iex_environment')),
-            'password'  => env('iex_db_pass' . env('iex_environment')),
-        ],
-
-        'srv4' => [
-            'driver'    => 'mysql',
-            'host'      => env('srv4_db_host'),
-            'port'      => '3306',
-            'database'  => env('srv4_db_name'),
-            'username'  => env('srv4_db_user'),
-            'password'  => env('srv4_db_pass'),
-        ],
-
-        'srv5' => [
-            'driver'    => 'mysql',
-            'host'      => env('srv5_db_host'),
-            'port'      => '3306',
-            'database'  => env('srv5_db_name'),
-            'username'  => env('srv5_db_user'),
-            'password'  => env('srv5_db_pass'),
+            'database'  => env('srv1_db_name'),
+            'username'  => env('srv1_db_user'),
+            'password'  => env('srv1_db_pass'),
             'ssl-verify-server-cert'   => 'true',
         ],
 

@@ -34,17 +34,20 @@ Route::prefix('toolbox')->group(function () {
 
 Route::prefix('iex')->group(function () {
     Route::get('/symbols', [\App\Http\Controllers\IexController::class, 'symbols']);
+    Route::get('/quote', [\App\Http\Controllers\IexController::class, 'get_quote']);
 });
 
 
-
+// All endpoints for Symbols
+Route::prefix('symbols')->group(function () {
+    Route::get('', [\App\Http\Controllers\SymbolsController::class, 'index']);
+    Route::get('{symbol}', [\App\Http\Controllers\SymbolsController::class, 'show']);
+});
 
 /**
  * Below: The apiResource endpoints make CRUD operations available for other systems.
  * For instance: getting an overview of all symbols, or getting details for one quote.
  */
-// All endpoints for Symbols
-Route::apiResource('symbols', \App\Http\Controllers\SymbolsController::class);
 
 // All endpoints for Quotes
 Route::apiResource('quotes', \App\Http\Controllers\QuotesController::class);
