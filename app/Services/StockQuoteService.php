@@ -32,7 +32,7 @@ class StockQuoteService
         } elseif($date < $now) {
             return $iex->get_historic_quote($symbol, $date);
         } elseif($date > $now) {
-            throw new Exception("Cannot get stock quote for future date unfortunately.");
+            throw new Exception("Cannot get stock quote for future date, unfortunately.");
         }
     }
 

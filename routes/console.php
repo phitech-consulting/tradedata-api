@@ -21,12 +21,20 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 
+/**
+ * Trigger download process of all symbols. Gets symbols from IEX API (about 12000)
+ * and upserts them to database.
+ */
 Artisan::command('iex:download_symbols', function () {
     $symbol = new \App\Services\SymbolService();
     $symbol->download_iex_symbols();
 })->purpose('Trigger download process of all symbols)');
 
 
+/**
+ * Get and print full quote for one single symbol via IEX (optionally give date as
+ * YYYYMMDD. Does not do any database operations.
+ */
 Artisan::command('iex:get_quote {symbol} {date?}', function ($symbol, $date = null) {
     $quote_service = new \App\Services\StockQuoteService();
     print_r(json_decode($quote_service->get_quote($symbol, $date), true));
@@ -50,22 +58,12 @@ Artisan::command('stock_quote:exists {date} {type} {source} {symbol}', function 
 
 
 
-Artisan::command('srv4', function () {
-dd(\DB::connection('srv4')->getPDO());
-    //    try {
-//        \DB::connection('srv4')->getPDO();
-//        echo \DB::connection()->getDatabaseName();
-//    } catch (\Exception $e) {
-//        echo 'None';
-//    }
-})->purpose('');
-
-Artisan::command('srv5', function () {
-    dd(\DB::connection('srv5')->getPDO());
-    //    try {
-//        \DB::connection('srv4')->getPDO();
-//        echo \DB::connection()->getDatabaseName();
-//    } catch (\Exception $e) {
-//        echo 'None';
-//    }
-})->purpose('');
+Artisan::command('srv1', function () {
+    dd(\DB::connection('srv1')->getPDO());
+        try {
+            \DB::connection('srv1')->getPDO();
+            echo \DB::connection()->getDatabaseName();
+        } catch (\Exception $e) {
+            echo 'None';
+        }
+})->purpose('Test the connection to srv1 database');
