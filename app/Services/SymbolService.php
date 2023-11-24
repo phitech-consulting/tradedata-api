@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Classes\IexApi;
-use App\Models\HistoricSymbolSet;
+use App\Models\IexHistoricSymbolSet;
 use Illuminate\Support\Facades\DB;
 
 class SymbolService
@@ -115,15 +115,9 @@ class SymbolService
         }
 
         // Store resulting SymbolSet in database
-        $symbol_set = HistoricSymbolSet::updateOrCreate(['date' => $symbol_set_data['date']], $symbol_set_data);
+        $symbol_set = IexHistoricSymbolSet::updateOrCreate(['date' => $symbol_set_data['date']], $symbol_set_data);
 
         // Return the resulting SymbolSet
         return $symbol_set;
     }
 }
-//        // Now clear all symbols with duplicated FIGIs from the $symbols variable.
-//        foreach($symbols as $key => $symbol) {
-//            if(in_array($symbol['figi'], $duplicates)) {
-//                unset($symbols[$key]);
-//            }
-//        }

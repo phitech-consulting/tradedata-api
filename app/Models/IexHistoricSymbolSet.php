@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Casts\DecompressAndJsonCast;
 
-class HistoricSymbolSet extends Model
+class IexHistoricSymbolSet extends Model
 {
     use HasFactory;
 
