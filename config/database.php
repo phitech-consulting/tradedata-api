@@ -63,23 +63,13 @@ return [
             ]) : [],
         ],
 
-
-        'srv4' => [
+        'srv1' => [
             'driver'    => 'mysql',
-            'host'      => env('srv4_db_host'),
+            'host'      => env('srv1_db_host'),
             'port'      => '3306',
-            'database'  => env('srv4_db_name'),
-            'username'  => env('srv4_db_user'),
-            'password'  => env('srv4_db_pass'),
-        ],
-
-        'srv5' => [
-            'driver'    => 'mysql',
-            'host'      => env('srv5_db_host'),
-            'port'      => '3306',
-            'database'  => env('srv5_db_name'),
-            'username'  => env('srv5_db_user'),
-            'password'  => env('srv5_db_pass'),
+            'database'  => env('srv1_db_name'),
+            'username'  => env('srv1_db_user'),
+            'password'  => env('srv1_db_pass'),
             'ssl-verify-server-cert'   => 'true',
         ],
 

@@ -58,22 +58,12 @@ Artisan::command('stock_quote:exists {date} {type} {source} {symbol}', function 
 
 
 
-Artisan::command('srv4', function () {
-dd(\DB::connection('srv4')->getPDO());
-    //    try {
-//        \DB::connection('srv4')->getPDO();
-//        echo \DB::connection()->getDatabaseName();
-//    } catch (\Exception $e) {
-//        echo 'None';
-//    }
-})->purpose('');
-
-Artisan::command('srv5', function () {
-    dd(\DB::connection('srv5')->getPDO());
-    //    try {
-//        \DB::connection('srv4')->getPDO();
-//        echo \DB::connection()->getDatabaseName();
-//    } catch (\Exception $e) {
-//        echo 'None';
-//    }
-})->purpose('');
+Artisan::command('srv1', function () {
+    dd(\DB::connection('srv1')->getPDO());
+        try {
+            \DB::connection('srv1')->getPDO();
+            echo \DB::connection()->getDatabaseName();
+        } catch (\Exception $e) {
+            echo 'None';
+        }
+})->purpose('Test the connection to srv1 database');
