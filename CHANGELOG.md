@@ -1,6 +1,14 @@
 # Tradedata API
 *Phitech Consulting, Lucas Johnston, l.johnston@phitech.consulting, +31614340331*
 ## Changelog
+### Version: v0.7 [Dynamic scheduling of daily IEX symbol sets]
+Date: 2023-11-25  
+Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
+#### Description
+Added setting that determines the download frequency of IEX symbol set downloads.
+#### Deploy instructions
+- Add *frequency_retrieve_iex_symbol_set* setting to *settings* table with value '0 9 * * *' (every day at 09:00h).
+- Better daily at 09:00h so that actually the symbol sets of *today* are downloaded and not from yesterday (6h time difference, so it must be at least 06:00h).
 ### Version: v0.6 [Functions for management and scheduling]
 Date: 2023-11-24  
 Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
