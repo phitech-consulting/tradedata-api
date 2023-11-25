@@ -6,9 +6,9 @@ use Illuminate\Foundation\Application;
 
 class TdaSelf
 {
-    const VERSION = "v0.6";
-    const LAST_EDIT_AT = "2023-11-24 23:50";
-    const LAST_EDIT = "Functions for management and scheduling";
+    const VERSION = "v0.7";
+    const LAST_EDIT_AT = "2023-11-25 12:30";
+    const LAST_EDIT = "Dynamic scheduling of daily IEX symbol sets";
 
 
     /**
