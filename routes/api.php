@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SettingsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,19 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+
+/**
+ * A set of API-routes for reading, editing, adding and deleting settings.
+ */
+Route::prefix('settings')->group(function () {
+    Route::get('/about', [SettingsController::class, 'about']);
+    Route::post('/', [SettingsController::class, 'addSetting']);
+    Route::put('/{id}', [SettingsController::class, 'editSetting']);
+    Route::delete('/{id}', [SettingsController::class, 'deleteSetting']);
+    Route::get('/{key}', [SettingsController::class, 'getSetting']);
+    Route::get('/', [SettingsController::class, 'getAllSettings']);
+});
 
 /**
  * The 'toolbox' endpoints are not part of the interactions between DWH/IEX,
