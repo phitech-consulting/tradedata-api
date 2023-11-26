@@ -3,12 +3,13 @@
 namespace app\Classes;
 
 use Illuminate\Foundation\Application;
+use Carbon\Carbon;
 
 class TdaSelf
 {
-    const VERSION = "v0.8";
-    const LAST_EDIT_AT = "2023-11-26 08:40";
-    const LAST_EDIT = "Added Settings CRUD endpoints";
+    const VERSION = "v0.9";
+    const LAST_EDIT_AT = "2023-11-26 11:05";
+    const LAST_EDIT = "Endpoint to test SRV1 (old) database";
 
 
     /**
@@ -40,12 +41,14 @@ class TdaSelf
      * @return array
      */
     public static function describe() {
+        $now = Carbon::now();
         return [
             'name' => config("app.name"),
             'env' => config("app.env"),
             'debug' => config("app.debug"),
             'url' => config("app.url"),
-            'timezone' => config("app.timezone"),
+            'system_time' => $now->toDateTimeString(),
+            'system_timezone' => config("app.timezone"),
             'framework_version' => Application::VERSION,
             'version' => self::VERSION,
             'last_edit_at' => self::LAST_EDIT_AT,

@@ -6,6 +6,7 @@ use App\Classes\DatesHelper;
 use App\Jobs\IexDownloadDailyCsQuotes;
 use App\Services\StockQuoteService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ToolboxController extends Controller
 {
@@ -29,5 +30,14 @@ class ToolboxController extends Controller
 
 
 //        return $dates_range;
+    }
+
+
+    public function test_get_srv1_data() {
+        $data = DB::connection('srv1')->table('dwh_market_data.measurements')
+            ->orderBy('measurement_datetime', 'desc') // Replace 'created_at' with the column you want to order by
+            ->take(10)
+            ->get();
+        return $data;
     }
 }
