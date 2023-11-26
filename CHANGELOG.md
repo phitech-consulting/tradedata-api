@@ -1,6 +1,14 @@
 # Tradedata API
 *Phitech Consulting, Lucas Johnston, l.johnston@phitech.consulting, +31614340331*
 ## Changelog
+### Version: v0.9 [Endpoint to test SRV1 (old) database]
+Date: 2023-11-26  
+Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
+#### Description
+Added a method and endpoint to test the connection to SRV1 database, later on to start migrating data.
+#### Summary
+- Added system time to ```TdaSelf->describe()```.
+- Added ```/toolbox/test-data-from-srv1``` endpoint to test connection to dwh_market_data database on SRV1.
 ### Version: v0.8 [Added Settings CRUD endpoints]
 Date: 2023-11-26  
 Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
