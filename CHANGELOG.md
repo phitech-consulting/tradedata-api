@@ -1,6 +1,11 @@
 # Tradedata API
 *Phitech Consulting, Lucas Johnston, l.johnston@phitech.consulting, +31614340331*
 ## Changelog
+### Version: v0.8 [Added Settings CRUD endpoints]
+Date: 2023-11-26  
+Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
+#### Description
+Added get (single), get (index), edit, create and delete endpoints for settings. Settings can now be administered via API.
 ### Version: v0.7 [Dynamic scheduling of daily IEX symbol sets]
 Date: 2023-11-25  
 Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
