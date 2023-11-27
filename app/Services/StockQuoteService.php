@@ -3,9 +3,10 @@
 namespace App\Services;
 
 use App\Classes\IexApi;
+use App\Models\ExchangeProductModel;
 use App\Models\IexSymbol;
-use App\Models\StockQuote;
-use App\Models\StockQuoteMeta;
+use App\Models\StockQuoteModel;
+use App\Models\StockQuoteMetaModel;
 use \Exception;
 use \Carbon\Carbon;
 
@@ -67,7 +68,7 @@ class StockQuoteService
                     'source' => "IEX",
                     'symbol_id' => $symbol->id,
                 ];
-                $stored_quote = StockQuote::firstOrCreate($main);
+                $stored_quote = StockQuoteModel::firstOrCreate($main);
 
                 // Only if new record was actually inserted: save metadata
                 if ($stored_quote->wasRecentlyCreated) {
@@ -81,7 +82,7 @@ class StockQuoteService
                             'meta_value' => $value,
                         ];
                     }
-                    StockQuoteMeta::insert($meta);
+                    StockQuoteMetaModel::insert($meta);
                 }
             }
             echo "done\n";
@@ -119,8 +120,8 @@ class StockQuoteService
      * @return mixed
      */
     public function exists($date, $type, $source, $symbol) {
-        $symbol = IexSymbol::where('symbol', $symbol)->first();
-        return StockQuote::where('date', $date)
+        $symbol = ExchangeProductModel::where('symbol', $symbol)->first();
+        return StockQuoteModel::where('date', $date)
             ->where('type', $type)
             ->where('source', $source)
             ->where('symbol_id', $symbol->id)

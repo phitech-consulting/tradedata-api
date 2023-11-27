@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\IexHistoricSymbolSet;
+use App\Models\IexHistoricSymbolSetModel;
 use Illuminate\Http\Request;
 
 class IexHistoricSymbolSetController extends Controller
@@ -45,10 +45,10 @@ class IexHistoricSymbolSetController extends Controller
     /**
      * Display the specified resource.
      * Route: GET /api/resources/iex-historic-symbol-sets/{id}
-     * @param  \App\Models\IexHistoricSymbolSet  $iexHistoricSymbolSet
+     * @param  \App\Models\IexHistoricSymbolSetModel  $iexHistoricSymbolSet
      * @return \Illuminate\Http\Response
      */
-    public function show(IexHistoricSymbolSet $iexHistoricSymbolSet)
+    public function show(IexHistoricSymbolSetModel $iexHistoricSymbolSet)
     {
         return response()->json($iexHistoricSymbolSet);
     }
@@ -56,10 +56,10 @@ class IexHistoricSymbolSetController extends Controller
     /**
      * Show the form for editing the specified resource.
      * Route: GET /api/resources/iex-historic-symbol-sets/{id}/edit
-     * @param  \App\Models\IexHistoricSymbolSet  $iexHistoricSymbolSet
+     * @param  \App\Models\IexHistoricSymbolSetModel  $iexHistoricSymbolSet
      * @return \Illuminate\Http\Response
      */
-    public function edit(IexHistoricSymbolSet $iexHistoricSymbolSet)
+    public function edit(IexHistoricSymbolSetModel $iexHistoricSymbolSet)
     {
         // Not to implement
         return response("", 404);
@@ -69,10 +69,10 @@ class IexHistoricSymbolSetController extends Controller
      * Update the specified resource in storage.
      * Route: UPDATE /api/resources/iex-historic-symbol-sets/{id}
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\IexHistoricSymbolSet  $iexHistoricSymbolSet
+     * @param  \App\Models\IexHistoricSymbolSetModel  $iexHistoricSymbolSet
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, IexHistoricSymbolSet $iexHistoricSymbolSet)
+    public function update(Request $request, IexHistoricSymbolSetModel $iexHistoricSymbolSet)
     {
         // Not to implement
         return response("", 404);
@@ -81,10 +81,10 @@ class IexHistoricSymbolSetController extends Controller
     /**
      * Remove the specified resource from storage.
      * DELETE /api/resources/iex-historic-symbol-sets/{id}
-     * @param  \App\Models\IexHistoricSymbolSet  $iexHistoricSymbolSet
+     * @param  \App\Models\IexHistoricSymbolSetModel  $iexHistoricSymbolSet
      * @return \Illuminate\Http\Response
      */
-    public function destroy(IexHistoricSymbolSet $iexHistoricSymbolSet)
+    public function destroy(IexHistoricSymbolSetModel $iexHistoricSymbolSet)
     {
         // Not to implement
         return response("", 404);
