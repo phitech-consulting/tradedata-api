@@ -34,6 +34,25 @@ class SettingsSeeder extends Seeder
                 'description' => 'Activate the cron for automatic daily download of IEX symbol set.',
                 'active' => true,
             ],
+            [
+                'key' => 'frequency_retrieve_iex_symbol_set',
+                'value' => '0 9 * * *',
+                'description' => 'Crontab entry to determine frequency for automatic daily download of IEX symbol set.',
+                'active' => true,
+
+            ],
+            [
+                'key' => 'schedule_upsert_exchange_products_from_iex',
+                'value' => 1,
+                'description' => 'Activate the cron for automatic upserting of ExchangeProducts from latest IexSymbolSet.',
+                'active' => true,
+            ],
+            [
+                'key' => 'frequency_upsert_exchange_products_from_iex',
+                'value' => '15 9 * * *',
+                'description' => 'Crontab entry to determine frequency for automatic upserting of ExchangeProducts from latest IexSymbolSet.',
+                'active' => true,
+            ],
         ];
 
         foreach ($settings as $setting) {

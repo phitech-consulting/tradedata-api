@@ -2,6 +2,7 @@
 
 namespace App\Classes;
 
+use App\Models\IexHistoricSymbolSetModel;
 use Illuminate\Support\Facades\Http;
 
 class IexApi
@@ -68,5 +69,53 @@ class IexApi
         } else {
             return false;
         }
+    }
+
+
+    /**
+     * Retrieve today's set of symbols from IEX API, make an inventory of all NULL FIGIs and duplicate FIGIs, then
+     * store the resulting IexHistoricSymbolSetModel in the database (compressed).
+     * @return IexHistoricSymbolSetModel|null
+     */
+    public function download_symbol_set() {
+        $symbols = json_decode($this->get_symbols(), true);
+
+        // Compose an array of symbols and metadata to store into the 'symbol_history' table later on.
+        $symbol_set_data = [
+            'date' => date("Y-m-d", strtotime("now")),
+            'metadata' => [
+                "datetime" => date("c", strtotime("now")),
+                "source" => "iex",
+                "count" => count($symbols),
+            ],
+            'duplicate_figis' => [
+                'null' => 0,
+            ],
+            'symbols' => $symbols,
+        ];
+
+        // Loop over the symbols and (1) count Symbols that have null-FIGI, and (2) create an array of all FIGIs.
+        $figis = [];
+        foreach($symbols as $symbol) {
+            if(!$symbol['figi']) {
+                $symbol_set_data['duplicate_figis']["null"] += 1; // Count +1 to null-FIGIs
+            } else {
+                $figis[] = $symbol['figi']; // Add FIGI to full array of FIGIs
+            }
+        }
+
+        // Count the duplicates in the array of FIGIs.
+        $counts = array_count_values($figis);
+        foreach($counts as $key => $count) {
+            if($count > 1) {
+                $symbol_set_data['duplicate_figis'][$key] = $count; // Add to the duplicate-FIGIs array
+            }
+        }
+
+        // Store resulting SymbolSet in database
+        $symbol_set = IexHistoricSymbolSetModel::updateOrCreate(['date' => $symbol_set_data['date']], $symbol_set_data);
+
+        // Return the resulting SymbolSet
+        return $symbol_set;
     }
 }
