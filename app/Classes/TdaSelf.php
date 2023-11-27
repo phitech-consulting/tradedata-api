@@ -7,9 +7,9 @@ use Carbon\Carbon;
 
 class TdaSelf
 {
-    const VERSION = "v0.9";
-    const LAST_EDIT_AT = "2023-11-26 11:05";
-    const LAST_EDIT = "Endpoint to test SRV1 (old) database";
+    const VERSION = "v0.10";
+    const LAST_EDIT_AT = "2023-11-27 11:45";
+    const LAST_EDIT = "Management of ExchangeProducts";
 
 
     /**

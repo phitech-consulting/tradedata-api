@@ -6,9 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Casts\DecompressAndJsonCast;
 
-class IexHistoricSymbolSet extends Model
+class IexHistoricSymbolSetModel extends Model
 {
     use HasFactory;
+
+    protected $table = 'iex_historic_symbol_sets';
+
 
     public $fillable = [
         'date',

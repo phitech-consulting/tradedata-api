@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SettingModel;
+use App\Models\ExchangeProductModel;
 use Illuminate\Http\Request;
 
-class SettingModelController extends Controller
+class ExchangeProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class SettingModelController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\SettingModel  $settingModel
+     * @param  \App\Models\ExchangeProductModel  $exchangeProductModel
      * @return \Illuminate\Http\Response
      */
-    public function show(SettingModel $settingModel)
+    public function show(ExchangeProductModel $exchangeProductModel)
     {
         //
     }
@@ -52,10 +52,10 @@ class SettingModelController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\SettingModel  $settingModel
+     * @param  \App\Models\ExchangeProductModel  $exchangeProductModel
      * @return \Illuminate\Http\Response
      */
-    public function edit(SettingModel $settingModel)
+    public function edit(ExchangeProductModel $exchangeProductModel)
     {
         //
     }
@@ -64,10 +64,10 @@ class SettingModelController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\SettingModel  $settingModel
+     * @param  \App\Models\ExchangeProductModel  $exchangeProductModel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SettingModel $settingModel)
+    public function update(Request $request, ExchangeProductModel $exchangeProductModel)
     {
         //
     }
@@ -75,10 +75,10 @@ class SettingModelController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\SettingModel  $settingModel
+     * @param  \App\Models\ExchangeProductModel  $exchangeProductModel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SettingModel $settingModel)
+    public function destroy(ExchangeProductModel $exchangeProductModel)
     {
         //
     }

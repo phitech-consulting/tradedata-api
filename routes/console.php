@@ -1,7 +1,5 @@
 <?php
 
-use App\Classes\IexApi;
-use App\Classes\Symbol;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 

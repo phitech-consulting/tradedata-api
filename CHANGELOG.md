@@ -1,6 +1,20 @@
 # Tradedata API
 *Phitech Consulting, Lucas Johnston, l.johnston@phitech.consulting, +31614340331*
 ## Changelog
+### Version: v0.10 [Management of ExchangeProducts]
+Date: 2023-11-27  
+Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
+#### Description
+Added functionality to manage set of ExchangeProducts later to use for retrieving StockQuotes.
+#### Summary
+- Deleted 'old' stock_quotes and iex_symbols tables. The stock_quotes table will be added again later on.
+- Added migration, model, controller and handler class for ExchangeProducts (replaces iex_symbols table/model).
+- Added method to store each ExchangeProduct inside a previously downloaded IexSymbolSet into exchange_products table: ```ExchangeProduct:upsert_iex_symbol_set()```;
+- Added console command to trigger ```upsert_iex_symbol_set()```.
+- Added DataValidationException.
+#### Deploy instructions
+- Add *schedule_upsert_exchange_products_from_iex* setting to *settings* table with value '1' (enabled).
+- Add *frequency_upsert_exchange_products_from_iex* setting to *settings* table with value '15 9 * * *' (every day at 09:15h).
 ### Version: v0.9 [Endpoint to test SRV1 (old) database]
 Date: 2023-11-26  
 Collaborators: Lucas Johnston <l.johnston@phitech.consulting>

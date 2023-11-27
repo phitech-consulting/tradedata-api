@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class StockQuote extends Model
+class StockQuoteModel extends Model
 {
     use HasFactory;
 
@@ -17,11 +17,11 @@ class StockQuote extends Model
     ];
 
 
-    public function iex_symbol() {
-        return $this->hasOne(IexSymbol::class);
+    public function exchange_product_model() {
+        return $this->hasOne(ExchangeProductModel::class);
     }
 
     public function stock_quote_meta() {
-        return $this->hasMany(StockQuoteMeta::class);
+        return $this->hasMany(StockQuoteMetaModel::class);
     }
 }

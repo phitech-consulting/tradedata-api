@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class IexSymbol extends Model
+class ExchangeProductModel extends Model
 {
     use HasFactory;
+
+    protected $table = 'exchange_products';
 
     public $fillable = [
         'symbol',
@@ -29,7 +31,10 @@ class IexSymbol extends Model
     ];
 
 
+    /**
+     * @return mixed
+     */
     public function stock_quotes() {
-        return $this->hasMany(StockQuote::class);
+        return $this->hasMany(StockQuoteModel::class);
     }
 }

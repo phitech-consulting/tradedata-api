@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class StockQuoteMeta extends Model
+class StockQuoteMetaModel extends Model
 {
     use HasFactory;
 
@@ -19,6 +19,6 @@ class StockQuoteMeta extends Model
 
 
     public function stock_quote() {
-        return $this->hasOne(StockQuote::class);
+        return $this->hasOne(StockQuoteModel::class);
     }
 }
