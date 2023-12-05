@@ -28,11 +28,12 @@ class ExchangeProductModel extends Model
         'figi',
         'cik',
         'lei',
+        'active',
     ];
 
 
     /**
-     * @return mixed
+     * @return HasMany
      */
     public function stock_quotes() {
         return $this->hasMany(StockQuoteModel::class);

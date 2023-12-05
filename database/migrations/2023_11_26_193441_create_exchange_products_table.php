@@ -16,8 +16,6 @@ return new class extends Migration
         Schema::create('exchange_products', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-//            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-//            $table->timestamp('updated_at')->nullable();
             $table->string('symbol', 16)->index();
             $table->string('exchange', 16);
             $table->string('exchange_suffix', 64);
