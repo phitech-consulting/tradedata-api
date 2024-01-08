@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\ErrorLogModel;
 use Illuminate\Console\Command;
-use App\Classes\StockQuote;
+use App\Classes\IexApi;
 
 class DownloadAllCsQuotesToday extends Command
 {

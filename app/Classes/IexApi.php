@@ -8,7 +8,6 @@ use App\Jobs\StoreOneQuote;
 use App\Models\IexHistoricSymbolSetModel;
 use Illuminate\Support\Facades\Http;
 use Carbon\Carbon;
-use App\Classes\StockQuote;
 
 class IexApi
 {
@@ -140,7 +139,7 @@ class IexApi
         }
 
         // Return a short description of the processes that were triggered.
-        return ["count(exchange_products)" => count($exchange_products), "max_delay" => $max_delay];
+        return ["count(exchange_products)" => count($exchange_products), "max" => $max, "max_delay" => $max_delay];
     }
 
 
