@@ -1,6 +1,9 @@
 # Tradedata API
 *Phitech Consulting, Lucas Johnston, l.johnston@phitech.consulting, +31614340331*
 ## Changelog
+### Version: v1.1 [Bugfix: Including IexApi class in DownloadAllCsQuotesToday]
+Date: 2024-01-08  
+Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
 ### Version: v1.0 [Frequent retrieval of StockQuotes]
 Date: 2024-01-08  
 Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
