@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Services\StockQuoteService;
+use App\Classes\IexApi;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -10,19 +10,20 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class IexDownloadHistoricQuote implements ShouldQueue
+class StoreOneQuote implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private $symbol = "";
-    private $date = "";
+    protected $symbol;
+    protected $date;
+
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($symbol, $date)
+    public function __construct(string $symbol, string $date = null)
     {
         $this->symbol = $symbol;
         $this->date = $date;
@@ -35,9 +36,7 @@ class IexDownloadHistoricQuote implements ShouldQueue
      */
     public function handle()
     {
-
-        $quote_service = new StockQuoteService;
-        $quote_service->download_quote($this->symbol, $this->date);
-
+        $iex_api = new IexApi();
+        $iex_api->store_one_quote($this->symbol, $this->date);
     }
 }
