@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\ErrorLogModel;
 use Illuminate\Console\Command;
+use App\Classes\StockQuote;
 
 class DownloadAllCsQuotesToday extends Command
 {
@@ -29,8 +30,8 @@ class DownloadAllCsQuotesToday extends Command
     public function handle()
     {
         try {
-            $stock_quote_service = new StockQuote();
-            echo $stock_quote_service->download_by_type("cs");
+            $iex_api = new IexApi();
+            echo $iex_api->download_by_type("cs");
             return Command::SUCCESS;
         } catch(\Exception $e) {
             ErrorLogModel::create([

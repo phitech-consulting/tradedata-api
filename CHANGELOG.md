@@ -1,8 +1,8 @@
 # Tradedata API
 *Phitech Consulting, Lucas Johnston, l.johnston@phitech.consulting, +31614340331*
 ## Changelog
-### Version: v1.0 beta1 [Frequent retrieval of StockQuotes]
-Date: 2023-12-05  
+### Version: v1.0 [Frequent retrieval of StockQuotes]
+Date: 2024-01-08  
 Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
 #### Description
 This update contains the bulk of the work for the frequent retrieval of StockQuotes from IEX API and storing them in the database. The application is now ready for beta testing.
@@ -19,6 +19,7 @@ This update contains the bulk of the work for the frequent retrieval of StockQuo
 - Custom exception: ```RetrieveQuoteException```.
 - Better error handling for IexApi->get_today_quote() and IexApi->get_historic_quote().
 - Added DownloadAllCsQuotesToday console command, and added it to the schedule.
+- Finished the IexApi->download_by_type() method for handling the daily StockQuote downloads.
 #### Deploy instructions
 - Run ```php artisan migrate```
 - Run ```php artisan db:seed OperatorsSeeder```.

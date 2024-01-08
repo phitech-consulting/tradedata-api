@@ -75,8 +75,6 @@ class ExchangeProduct extends ExchangeProductModel
                     }
                 }
 
-
-
                 // The statement below composes an array of all FIGIs from the IexSymbolSet.
                 $figis = collect($iex_symbol_set->symbols)->pluck('figi')->map('strval')->toArray();
 

@@ -1,9 +1,11 @@
 <?php
 
+use App\Mail\DebuggingMail;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use App\Classes\StockQuote;
 use App\Classes\ExchangeProduct;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,10 +54,10 @@ Artisan::command('exchange_product:get_all_by_type {type} {date?}', function ($t
  * YYYYMMDD. Does not do any database operations.
  */
 Artisan::command('iex:get_quote {symbol} {date?}', function ($symbol, $date = null) {
-    $quote_service = new StockQuote();
-    $stock_quote = $quote_service->get_quote($symbol, $date);
+    $iex_api = new \App\Classes\IexApi();
+    $stock_quote = $iex_api->get_quote($symbol, $date);
     $this->line("\n<fg=green>" . print_r($stock_quote->toArray(), true) . "</>");
-})->purpose('Get full quote for one single symbol via IEX (give optional date as YYYYMMDD)');
+})->purpose('Get full quote for one single symbol via IEX (give optional date as YYYY-MM-DD)');
 
 
 /**
@@ -69,35 +71,39 @@ Artisan::command('iex:get_delay_seconds {number_of_requests}', function ($number
 
 
 /**
- * Commands below are for stock_quote: namespace.
+ * Command to store one single quote from IEX API by symbol, optionally on given date.
  */
-
-
-/**
- * TODO: This command is not yet finished.
- */
-Artisan::command('stock_quote:store_one_quote {symbol} {date?}', function ($symbol, $date = null) {
-    $stock_quote_service = new StockQuote();
+Artisan::command('iex:store_one_quote {symbol} {date?}', function ($symbol, $date = null) {
+    $iex_api = new \App\Classes\IexApi();
     try {
-        $stock_quote = $stock_quote_service->store_one_quote($symbol, $date);
+        $stock_quote = $iex_api->store_one_quote($symbol, $date);
         if($stock_quote) {
             $this->line("\n<fg=green>" . print_r($stock_quote->toArray(), true) . "</>");
         } else {
-            $this->line("\n<fg=blue>StockQuote already present in database. Skipped.\n\nSide-note: mind the fact that the US markets open at 09:30 (New York time), which is 15:30 in Amsterdam. That means that until this time, while in NL you might expect the StockQuote for today, IEX would still return the stock quote for yesterday. This might explain the case where you expect today's quote to be freshly added, but you're noticing (above) that it was skipped. Wait until 15:30h.</>\n");
+            throw new \Exception("For some reason, the store_one_quote() method returned an empty response.");
         }
     } catch(Exception $e) {
         $this->line("\n<fg=red>" . $e->getTraceAsString() . "\n\n" . $e->getMessage() . "</>\n");
     }
-})->purpose('');
+})->purpose('Trigger download process for one single StockQuote (give optional date as YYYY-MM-DD)');
 
 
 /**
  * Command to trigger download of all quotes of given type (for instance 'cs' common stock), optionally on given date.
  */
-Artisan::command('stock_quote:download_by_type {type} {date?}', function ($type, $date = null) {
-    $stock_quote = new StockQuote();
-    echo $stock_quote->download_by_type($type, $date);
-})->purpose('Trigger download process for all quotes of given type (give optional date as YYYYMMDD)');
+Artisan::command('iex:download_by_type {type} {date?}', function ($type, $date = null) {
+    $iex_api = new \App\Classes\IexApi();
+    try {
+        $process_data = $iex_api->download_by_type($type, $date);
+        $this->line("\n<fg=green>" . print_r($process_data, true) . "</>");
+    } catch(Exception $e) {
+        $this->line("\n<fg=red>" . $e->getTraceAsString() . "\n\n" . $e->getMessage() . "</>\n");
+    }
+})->purpose('Trigger download process for all quotes of given type (give optional date as YYYY-MM-DD)');
+
+/**
+ * Commands below are for stock_quote: namespace.
+ */
 
 
 /**
@@ -155,3 +161,11 @@ Artisan::command('tda:setting {key}', function ($key) {
     echo "\n" . $key . " = " . config("tda." . $key) . "\n\n";
 })->purpose('Show one specific TDA setting by key');
 
+
+/**
+ * Command to see if connection to mail server is working.
+ */
+Artisan::command('tda:testmail {mail}', function ($mail) {
+    $data = "If you receive this, the mailserver is working.";
+    Mail::to($mail)->send(new DebuggingMail($data));
+})->purpose('Check if connection to mailserver is working');

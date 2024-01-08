@@ -22,18 +22,39 @@ return new class extends Migration
             $table->foreign('http_source_id')->references('id')->on('http_sources');
             $table->unsignedBigInteger('average_total_volume')->index()->nullable();
             $table->unsignedBigInteger('volume')->index()->nullable();
-            $table->decimal('change', 13, 6)->index()->nullable();
-            $table->decimal('change_percentage', 5, 4)->index()->nullable();
-            $table->decimal('change_ytd', 13, 6)->index()->nullable();
-            $table->decimal('open', 13, 6)->index()->nullable();
-            $table->decimal('close', 13, 6)->index()->nullable();
+            $table->decimal('change', 13, 3)->index()->nullable();
+            $table->decimal('change_percentage', 5, 2)->index()->nullable();
+            $table->decimal('change_ytd', 13, 3)->index()->nullable();
+            $table->decimal('open', 13, 3)->index()->nullable();
+            $table->decimal('close', 13, 3)->index()->nullable();
             $table->string('company_name', 128)->index()->nullable();
             $table->unsignedBigInteger('market_cap')->index()->nullable();
-            $table->decimal('pe_ratio', 13, 6)->index()->nullable();
-            $table->decimal('week_52_low', 13, 6)->index()->nullable();
-            $table->decimal('week_52_high', 13, 6)->index()->nullable();
+            $table->decimal('pe_ratio', 13, 3)->index()->nullable();
+            $table->decimal('week_52_low', 13, 3)->index()->nullable();
+            $table->decimal('week_52_high', 13, 3)->index()->nullable();
             $table->jsonb('metadata'); // May be indexed, as it is a jsonb column. However, don't index anything yet. Later on add index if needed, based on functional requirements.
             $table->unique(['date', 'symbol', 'http_source_id']);
+
+            // Testing / Development (today quote)
+//            $table->date('close_time')->nullable();
+//            $table->date('delayed_price_time')->nullable();
+//            $table->date('extended_price_time')->nullable();
+//            $table->date('high_time')->nullable();
+//            $table->date('iex_close_time')->nullable();
+//            $table->date('iex_last_updated')->nullable();
+//            $table->date('iex_open_time')->nullable();
+//            $table->date('latest_time')->nullable();
+//            $table->date('latest_update')->nullable();
+//            $table->date('low_time')->nullable();
+//            $table->date('open_time')->nullable();
+//            $table->date('last_trade_time')->nullable();
+
+            // Testing / Development (historic quote)
+//            $table->date('price_date')->nullable();
+//            $table->date('date_date')->nullable();
+//            $table->date('updated')->nullable();
+//            $table->date('label')->nullable();
+
         });
 //        Schema::create('stock_quotes_meta', function (Blueprint $table) {
 //            $table->id();
