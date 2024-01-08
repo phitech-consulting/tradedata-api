@@ -2,7 +2,6 @@
 
 namespace app\Classes;
 
-use App\Models\ErrorLogModel;
 use App\Models\ExchangeProductModel;
 use App\Models\IexHistoricSymbolSetModel;
 use Illuminate\Support\Facades\DB;
@@ -64,7 +63,7 @@ class ExchangeProduct extends ExchangeProductModel
                         'is_enabled' => $symbol['isEnabled'] ?? "",
                         'figi' => $symbol['figi'] ?? "",
                         'cik' => $symbol['cik'] ?? "",
-                        'lei' => $symbol['lei'] ?? ""
+                        'lei' => $symbol['lei'] ?? "",
                     ];
 
                     // If all goes well, upsert the current array element into the database.
@@ -75,6 +74,13 @@ class ExchangeProduct extends ExchangeProductModel
                         );
                     }
                 }
+
+                // The statement below composes an array of all FIGIs from the IexSymbolSet.
+                $figis = collect($iex_symbol_set->symbols)->pluck('figi')->map('strval')->toArray();
+
+                // The statement below sets all ExchangeProducts to inactive that are not in the $figis array.
+                ExchangeProductModel::whereNotIn('figi', $figis)
+                    ->update(['active' => 0]);
 
                 // All went well, finalise the database operation.
                 DB::commit();
@@ -96,16 +102,66 @@ class ExchangeProduct extends ExchangeProductModel
     }
 
 
-
     /**
-     * Enter a type (for instance 'cs' common stock) and get a collection of symbols back from DB.
+     * Enter a type (for instance 'cs' common stock) and get a collection of symbols back from DB. If no $date is
+     * given, the collection of symbols is retrieved from the exchange_products table. If $date is given, the
+     * collection of symbols is retrieved from the IexHistoricSymbolSetModel table. But if there is no
+     * IexHistoricSymbolSetModel for the given date, the collection of symbols is (still) retrieved from the
+     * exchange_products table.
      * @param string $type
-     * @return mixed
+     * @param string|null $date
+     * @return Collection
      */
     public function get_all_by_type(string $type, string $date = null) {
-        $date = $date ?? date('Y-m-d', strtotime('now'));
-        $symbols = DB::table('iex_symbols')->select('symbol', 'id')->where('type', $type)->limit(4)->get();
-        return $symbols;
-    }
 
+        // If date is given, convert to YYYY-MM-DD format, otherwise set to null.
+        $date = $date ? date('Y-m-d', strtotime($date)) : null;
+
+        // If date is given, try to get HistoricIexSymbolSet where date is given date
+        if($date) {
+
+            // Try to get HistoricIexSymbolSet where date is given date.
+            $iex_symbol_set = IexHistoricSymbolSetModel::where('date', $date)->first();
+            if($iex_symbol_set) {
+
+                // If HistoricIexSymbolSet was found, get the symbols from the set and decompress.
+                $symbols = $iex_symbol_set->symbols;
+
+                /**
+                 * Below code composes a collection of symbols from $symbols array where type is given type. The
+                 * contents of the $symbols array is an array of arrays, where each array contains a symbol. The array
+                 * of symbols is filtered by type, and then the filtered array is returned.
+                 */
+
+                $exchange_products = collect(array_filter($symbols, function($symbol) use ($type) {
+                    return $symbol['type'] == $type;
+                }))->map(function ($symbol) {
+                    return new ExchangeProduct([
+                        'symbol' => $symbol['symbol'], // Replace with actual property names
+                        'exchange' => $symbol['exchange'],
+                        'exchange_suffix' => $symbol['exchangeSuffix'],
+                        'exchange_name' => $symbol['exchangeName'],
+                        'exchange_segment' => $symbol['exchangeSegment'],
+                        'exchange_segment_name' => $symbol['exchangeSegmentName'],
+                        'name' => $symbol['name'],
+                        'date' => $symbol['date'],
+                        'type' => $symbol['type'],
+                        'iex_id' => $symbol['iexId'],
+                        'region' => $symbol['region'],
+                        'currency' => $symbol['currency'],
+                        'is_enabled' => $symbol['isEnabled'],
+                        'figi' => $symbol['figi'],
+                        'cik' => $symbol['cik'],
+                        'lei' => $symbol['lei'],
+                    ]);
+                });
+
+                // The line below returns the exchange products as a collection.
+                return collect($exchange_products);
+            }
+        }
+
+        // Get all columns from exchange_products table consistent with the provided $type.
+        return ExchangeProductModel::where('type', $type)->get();
+    }
 }

@@ -21,6 +21,10 @@ class Kernel extends ConsoleKernel
         if(config('tda.schedule_upsert_exchange_products_from_iex') == 1) {
             $schedule->command('exchange_product:upsert_iex_symbol_set')->cron(config('tda.frequency_upsert_exchange_products_from_iex'));
         }
+
+        if(config('tda.schedule_download_all_cs_quotes_today') == 1) {
+            $schedule->command('stock_quote:download_all_cs_quotes_today')->cron(config('tda.frequency_download_all_cs_quotes_today'));
+        }
     }
 
     /**
