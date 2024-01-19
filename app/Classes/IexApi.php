@@ -43,6 +43,11 @@ class IexApi
         // If date is not given, set to today's date.
         $date = $date ?? $now;
 
+        // Break the program if given date is in the weekend.
+        if(DatesHelper::is_weekend($date)) {
+            throw new QuoteRetrieveException("StockQuote for " . $symbol . " could not be retrieved. Provided date " . $date . " is a weekend day. There is no trading in the weekend.");
+        }
+
         // Return quote based on date.
         if($date == $now) {
             return $this->get_today_quote($symbol);
@@ -78,11 +83,11 @@ class IexApi
         if (!StockQuote::exists($date, $symbol, $http_source->reference)) {
             $quote = $this->get_quote($symbol, $date);
 
-            // Only if a quote was found start the insert process
-            if ($quote) {
+            // Only if a quote was found, start the insert process
+            if($quote) {
 
                 // Check if the last_trade_time (in case of today quote) or ... (in case of historic quote) is equal to provided $date. If not, don't save the StockQuote.
-                if ($quote->date == $date) {
+                if($quote->date == $date) {
                     try {
                         $quote->save(); // If all is well, save the quote to the database.
                         return $quote; // Return the quote.
