@@ -1,6 +1,24 @@
 # Tradedata API
 *Phitech Consulting, Lucas Johnston, l.johnston@phitech.consulting, +31614340331*
 ## Changelog
+### Version: v1.2 [Capability to import from SRV1]
+Date: 2024-01-19  
+Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
+#### Description
+After this update, 
+#### Summary
+- Improvement: IexApi->get_quote() now checks whether date is in the weekend.
+- Implementation of functionality that imports StockQuotes from SRV1.
+- Partly implementation of functionality to import other historic StockQuotes from IexApi.
+#### Deploy instructions
+- Run ```php artisan migrate```  
+- Import file '/storage/files/measurements.sql' into the database.  
+- Add *schedule_import_1000* setting to *settings* table with value '1' (enabled).  
+- Add *frequency_import_1000* setting to *settings* table with value '* * * * *' ().  
+#### Summary
+- Improved console command descriptions.
+- Introduced ImportFromOldVersionHelper class.
+- Added weekend-day check in _IexApi->get_quote()_.  
 ### Version: v1.1 [Bugfix: Including IexApi class in DownloadAllCsQuotesToday]
 Date: 2024-01-08  
 Collaborators: Lucas Johnston <l.johnston@phitech.consulting>

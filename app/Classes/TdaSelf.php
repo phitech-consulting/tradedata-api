@@ -7,9 +7,9 @@ use Carbon\Carbon;
 
 class TdaSelf
 {
-    const VERSION = "v1.1";
-    const LAST_EDIT_AT = "2024-01-08 22:50";
-    const LAST_EDIT = "Bugfix: Including IexApi class in DownloadAllCsQuotesToday";
+    const VERSION = "v1.2";
+    const LAST_EDIT_AT = "2024-01-19 09:00";
+    const LAST_EDIT = "Capability to import from SRV1";
 
 
     /**

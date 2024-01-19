@@ -32,4 +32,18 @@ class DatesHelper
         }
         return $aryRange;
     }
+
+    /**
+     * Returns true if given date is on a weekend, false otherwise.
+     * @param $date
+     * @return bool
+     */
+    public static function is_weekend($date) {
+
+        // Get the day of the week (0 = Sunday, 6 = Saturday)
+        $dayOfWeek = date('w', strtotime($date));
+
+        // Check if the day is Saturday (6) or Sunday (0)
+        return ($dayOfWeek == 0 || $dayOfWeek == 6);
+    }
 }
