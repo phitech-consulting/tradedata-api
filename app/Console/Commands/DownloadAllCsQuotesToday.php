@@ -13,14 +13,14 @@ class DownloadAllCsQuotesToday extends Command
      *
      * @var string
      */
-    protected $signature = 'stock_quote:download_all_cs_quotes_today';
+    protected $signature = 'iex:download_all_cs_quotes_today';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Trigger download process for all Common Stock (cs) quotes today (uses same method as \'iex:download_by_type\')';
 
     /**
      * Execute the console command.

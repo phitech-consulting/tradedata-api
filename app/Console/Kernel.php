@@ -23,7 +23,11 @@ class Kernel extends ConsoleKernel
         }
 
         if(config('tda.schedule_download_all_cs_quotes_today') == 1) {
-            $schedule->command('stock_quote:download_all_cs_quotes_today')->cron(config('tda.frequency_download_all_cs_quotes_today'));
+            $schedule->command('iex:download_all_cs_quotes_today')->cron(config('tda.frequency_download_all_cs_quotes_today'));
+        }
+
+        if(config('tda.schedule_import_1000') == 1) {
+            $schedule->command('import:1000')->cron(config('tda.frequency_import_1000'));
         }
     }
 

@@ -169,3 +169,35 @@ Artisan::command('tda:testmail {mail}', function ($mail) {
     $data = "If you receive this, the mailserver is working.";
     Mail::to($mail)->send(new DebuggingMail($data));
 })->purpose('Check if connection to mailserver is working');
+
+
+/**
+ * Commands below are for import: namespace.
+ */
+
+
+Artisan::command('import:get_quote {symbol} {date?}', function ($symbol, $date) {
+    $helper = new App\Classes\ImportFromOldVersionHelper;
+    $stock_quote = $helper->get_srv1_quote($symbol, $date);
+    $this->line("\n<fg=green>" . print_r($stock_quote->toArray(), true) . "</>");
+})->purpose('Get full quote for one single symbol via IEX, give required date as YYYY-MM-DD)');
+
+
+Artisan::command('import:another_day', function () {
+    $helper = new App\Classes\ImportFromOldVersionHelper;
+    $result = $helper->import_another_day();
+    dd($result);
+})->purpose('');
+
+
+Artisan::command('import:one_quote {symbol} {date}', function ($symbol, $date) {
+    $helper = new App\Classes\ImportFromOldVersionHelper;
+    $result = $helper->import_one_quote($symbol, $date);
+    dd($result);
+})->purpose('');
+
+
+
+Artisan::command('import:tst', function () {
+    dd(\App\Classes\ImportSrv1Helper::import_1000());
+})->purpose('');
