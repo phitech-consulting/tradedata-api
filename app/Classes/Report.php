@@ -16,41 +16,39 @@ class Report
      * @param Collection $stock_quotes
      * @return self
      */
-    public static function stored_quotes_overview(Collection $stock_quotes) {
+    public static function stored_quotes_overview($stock_quotes) {
 
         // Initialize some variables.
-        $fill_rates_per_date = [];
         $report_obj = new self();
 
-        // Get fill rate for each individual StockQuote.
-        foreach($stock_quotes as $stock_quote) {
-            $fill_rates_per_date[$stock_quote->date][] = $stock_quote->get_fill_rate(); // Compose array with all fill_rates to get the mean per date later on
-        }
+        // Iterate over the StockQuotes.
+        foreach($stock_quotes as $stock_quote)
+        {
+            $date = $stock_quote->date;
 
-        // Get means of fill rate per date.
-        foreach($fill_rates_per_date as $date => $fill_rates) {
-            $report_obj->raw[$date]['mean_fill_rate'] = array_sum($fill_rates) / count($fill_rates);
-        }
-
-        // Get total count of StockQuotes, grouped per date.
-        foreach($stock_quotes as $stock_quote) {
-            if(!isset($report_obj->raw[$stock_quote->date]['count_total'])) {
-                $report_obj->raw[$stock_quote->date]['count_total'] = 0;
+            // Initialize date group if not already set.
+            if(!isset($report_obj->raw[$date])) {
+                $report_obj->raw[$date] = [
+                    'mean_fill_rate' => [],
+                    'count_historic' => 0,
+                    'count_live' => 0,
+                    'count_total' => 0,
+                ];
             }
-            $report_obj->raw[$stock_quote->date]['count_total']++;
-        }
 
-        // Get total count of StockQuotes, grouped per date.
-        foreach($stock_quotes as $stock_quote) {
-            if(!isset($report_obj->raw[$stock_quote->date]['count_historic'])) {
-                $report_obj->raw[$stock_quote->date]['count_historic'] = 0;
-                $report_obj->raw[$stock_quote->date]['count_live'] = 0;
-            }
-            if(isset($stock_quote->metadata['id']) && $stock_quote->metadata['id'] == "HISTORICAL_PRICES") {
-                $report_obj->raw[$stock_quote->date]['count_historic']++;
+            $report_obj->raw[$date]['mean_fill_rate'][] = $stock_quote->get_fill_rate();
+            $report_obj->raw[$date]['count_total']++;
+
+            if(isset($stock_quote->metadata['id']) && $stock_quote->metadata['id'] === "HISTORICAL_PRICES") {
+                $report_obj->raw[$date]['count_historic']++;
             } else {
-                $report_obj->raw[$stock_quote->date]['count_live']++;
+                $report_obj->raw[$date]['count_live']++;
             }
+        }
+
+        // Compute the mean fill rates and clean up intermediate storage.
+        foreach($report_obj->raw as $date => $data) {
+            $report_obj->raw[$date]['mean_fill_rate'] = array_sum($data['mean_fill_rate']) / count($data['mean_fill_rate']);
         }
 
         // Generate a CSV based on the raw report.
