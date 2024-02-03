@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Collection;
 class Report
 {
 
-    public array $raw;
-    public string $csv;
+    public array $raw = [];
+    public string $csv = "";
 
     /**
      * Generate a report of stored StockQuotes based on a provided Collection that includes various metadata and data
