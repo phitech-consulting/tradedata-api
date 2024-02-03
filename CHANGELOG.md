@@ -1,16 +1,27 @@
 # Tradedata API
 *Phitech Consulting, Lucas Johnston, l.johnston@phitech.consulting, +31614340331*
 ## Changelog
+### Version: v1.2.1 [Stored Quotes Overview report, reporting module, minor changes]
+Date: 2024-02-03
+Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
+#### Description
+This update contains a new, simple reporting module, including a  _Stored Quotes Overview_ report.
+#### Summary
+- Added Reporting route(s), controller and helper class.
+- Minor refactor, fixes and improvement to various API-routes and controllers.
+- Added _Stored Quotes Overview_ report that delivers a matrix of metadata about StockQuotes records.
 ### Version: v1.2 [Capability to import from SRV1]
 Date: 2024-01-19  
 Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
 #### Description
-After this update, 
+After this update, the import from SRV1 can start.
 #### Summary
 - Improvement: IexApi->get_quote() now checks whether date is in the weekend.
 - Implementation of functionality that imports StockQuotes from SRV1.
 - Partly implementation of functionality to import other historic StockQuotes from IexApi.
 #### Deploy instructions
+- Add record to _operators_ table: reference=ptc, name="Phitech Consulting"  
+- Add record to _http_sources_ table: reference=ptc_srv1, name="Phitech SRV1", operator_id=[id_from_previous_bullet]  
 - Run ```php artisan migrate```  
 - Import file '/storage/files/measurements.sql' into the database.  
 - Add *schedule_import_1000* setting to *settings* table with value '1' (enabled).  

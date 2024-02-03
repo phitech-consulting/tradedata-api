@@ -10,26 +10,11 @@ use Illuminate\Support\Facades\DB;
 
 class ToolboxController extends Controller
 {
-    public function retrieve_quotes_daterange(Request $request) {
-
-
+    public function get_daterange(Request $request) {
         $date_from = $request->date_from;
         $date_to = $request->date_to;
-
-
         $dates_range = DatesHelper::createDateRangeArray($date_from, $date_to);
-
-//        foreach($dates_range as $date) {
-//            dispatch(new IexDownloadDailyCsQuotes($date));
-//        }
-
-        foreach($dates_range as $date) {
-            $quote_service = new StockQuoteService;
-            $quote_service->download_quotes_by_type('cs', $date);
-        }
-
-
-//        return $dates_range;
+        return $dates_range;
     }
 
 

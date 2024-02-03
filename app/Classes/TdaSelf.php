@@ -7,9 +7,9 @@ use Carbon\Carbon;
 
 class TdaSelf
 {
-    const VERSION = "v1.2";
-    const LAST_EDIT_AT = "2024-01-19 09:00";
-    const LAST_EDIT = "Capability to import from SRV1";
+    const VERSION = "v1.2.1";
+    const LAST_EDIT_AT = "2024-02-03 22:35";
+    const LAST_EDIT = "Stored Quotes Overview report, reporting module, minor changes";
 
 
     /**
