@@ -1,6 +1,11 @@
 # Tradedata API
 *Phitech Consulting, Lucas Johnston, l.johnston@phitech.consulting, +31614340331*
 ## Changelog
+### Version: v1.2.2 [Minor bugfix in Stored Quotes Overview report]
+Date: 2024-02-03
+Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
+#### Description
+Solves minor bug: Error on empty collection in Report->stored_quotes_overview().
 ### Version: v1.2.1 [Stored Quotes Overview report, reporting module, minor changes]
 Date: 2024-02-03
 Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
