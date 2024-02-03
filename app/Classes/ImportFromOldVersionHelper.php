@@ -5,8 +5,6 @@ namespace App\Classes;
 use App\Exceptions\QuoteRetrieveException;
 use App\Exceptions\QuoteStoreException;
 use App\Jobs\ImportOneQuote;
-use App\Models\HttpSourceModel;
-use App\Models\IexHistoricSymbolSetModel;
 use App\Models\ImportPlanModel;
 use Illuminate\Support\Facades\DB;
 

@@ -14,7 +14,7 @@ class ExchangeProductController extends Controller
      */
     public function index()
     {
-        //
+        // To implement
     }
 
     /**
@@ -24,7 +24,8 @@ class ExchangeProductController extends Controller
      */
     public function create()
     {
-        //
+        // Not to implement
+        return response("", 404);
     }
 
     /**
@@ -35,7 +36,8 @@ class ExchangeProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Not to implement
+        return response("", 404);
     }
 
     /**
@@ -46,7 +48,7 @@ class ExchangeProductController extends Controller
      */
     public function show(ExchangeProductModel $exchangeProductModel)
     {
-        //
+        // To implement
     }
 
     /**
@@ -57,7 +59,8 @@ class ExchangeProductController extends Controller
      */
     public function edit(ExchangeProductModel $exchangeProductModel)
     {
-        //
+        // Not to implement
+        return response("", 404);
     }
 
     /**
@@ -69,7 +72,8 @@ class ExchangeProductController extends Controller
      */
     public function update(Request $request, ExchangeProductModel $exchangeProductModel)
     {
-        //
+        // Not to implement
+        return response("", 404);
     }
 
     /**
@@ -80,6 +84,7 @@ class ExchangeProductController extends Controller
      */
     public function destroy(ExchangeProductModel $exchangeProductModel)
     {
-        //
+        // Not to implement
+        return response("", 404);
     }
 }

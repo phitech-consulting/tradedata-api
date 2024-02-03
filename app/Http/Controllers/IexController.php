@@ -29,7 +29,7 @@ class IexController extends Controller
      * @throws \Exception
      */
     public function get_quote(Request $request) {
-        $quote_service = new \App\Services\StockQuoteService();
-        return response($quote_service->get_quote($request->symbol, $request->date));
+        $iex_api = new \App\Classes\IexApi();
+        return response($iex_api->get_quote($request->symbol, $request->date));
     }
 }
