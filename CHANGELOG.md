@@ -1,6 +1,11 @@
 # Tradedata API
 *Phitech Consulting, Lucas Johnston, l.johnston@phitech.consulting, +31614340331*
 ## Changelog
+### Version: v1.2.3 [Add simple exception handling to ReportingController]
+Date: 2024-02-03
+Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
+#### Description
+Logging exception on ReportingController because on production the Stored Quotes Overview report seems to crash the program, which kind of makes sense when you try to process 5GB in one PHP session.
 ### Version: v1.2.2 [Minor bugfix in Stored Quotes Overview report]
 Date: 2024-02-03
 Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
