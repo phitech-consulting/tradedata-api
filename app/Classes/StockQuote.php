@@ -33,4 +33,56 @@ class StockQuote extends StockQuoteModel
             return false; // If no HttpSource was found, return false (not found).
         }
     }
+
+    /**
+     * Method to calculate the fill rate for the current StockQuote object. It calculates the amount of filled
+     * fillable fields and divides it by the total count of 'fillable' fields. Returns the mean number of filled
+     * fields. The fill rate could be used to determine the object completeness in data.
+     * @return float|int
+     */
+    public function get_fill_rate() {
+
+        // Initialize empty $filled variable.
+        $filled = 0;
+
+        // Get the fillable fields for StockQuoteModel.
+        $fields = $this->fillable;
+
+        // For each of the fillable fields, check if it is actually filled.
+        foreach($fields as $field) {
+            if($this->$field != null) {
+                $filled++;
+            }
+        }
+
+        // Return the mean number of filled fields.
+        return $filled / count($fields);
+    }
+
+
+    /**
+     * Method to get the stock quotes by period, based on the specified start and end dates. Dates date_from and
+     * date_to are provided in YYYY-MM-DD format.
+     * @param string|null $date_from
+     * @param string|null $date_to
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public static function get_by_period(string $date_from = null, string $date_to = null) {
+
+        // Initialize query.
+        $query = StockQuote::query();
+
+        // Optionally add from clause to query.
+        if ($date_from) {
+            $query->where('date', '>=', $date_from);
+        }
+
+        // Optionally add to clause to query.
+        if ($date_to) {
+            $query->where('date', '<=', $date_to);
+        }
+
+        // Return the result of the query.
+        return $query->get();
+    }
 }
