@@ -7,9 +7,9 @@ use Carbon\Carbon;
 
 class TdaSelf
 {
-    const VERSION = "v1.2.3";
-    const LAST_EDIT_AT = "2024-02-03 23:10";
-    const LAST_EDIT = "Add simple exception handling to ReportingController";
+    const VERSION = "v1.2.4";
+    const LAST_EDIT_AT = "2024-02-03 23:50";
+    const LAST_EDIT = "Improved efficiency for Stored Quotes Overview report";
 
 
     /**

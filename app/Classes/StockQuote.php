@@ -82,7 +82,10 @@ class StockQuote extends StockQuoteModel
             $query->where('date', '<=', $date_to);
         }
 
-        // Return the result of the query.
-        return $query->get();
+        // Order the query.
+        $query->orderBy('date');
+
+        // Return the LazyCollection instance.
+        return $query->cursor();
     }
 }

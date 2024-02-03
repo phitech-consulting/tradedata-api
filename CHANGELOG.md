@@ -1,6 +1,11 @@
 # Tradedata API
 *Phitech Consulting, Lucas Johnston, l.johnston@phitech.consulting, +31614340331*
 ## Changelog
+### Version: v1.2.4 [Improved efficiency for Stored Quotes Overview report]
+Date: 2024-02-03
+Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
+#### Description
+The fetching of the StockQuotes are now by chunking. The Report->stored_quotes_overview() is now more efficient.
 ### Version: v1.2.3 [Add simple exception handling to ReportingController]
 Date: 2024-02-03
 Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
