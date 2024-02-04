@@ -99,7 +99,7 @@ class Report
                     'date' => $stock_quote->date,
                     'symbol' => $stock_quote->symbol,
                     'http_source_id' => $stock_quote->http_source_id,
-                    'company_name' => $stock_quote->company_name,
+                    'company_name' => '"' . str_replace('"', '""', $stock_quote->company_name) . '"',
                 ];
             }
         }
@@ -107,7 +107,7 @@ class Report
         // Generate a CSV based on the raw report.
         $report_obj->csv = "id;created_at;updated_at;date;symbol;http_source_id;company_name\n";
         foreach ($report_obj->raw as $data) {
-            $report_obj->csv .= $data['id'] . ';"' . $data['created_at'] . '";"' . $data['updated_at'] . '";' . $data['date'] . ';' . $data['symbol'] . ';' . $data['http_source_id'] . ';"' . $data['company_name'] . "\"\n";
+            $report_obj->csv .= $data['id'] . ';"' . $data['created_at'] . '";"' . $data['updated_at'] . '";' . $data['date'] . ';' . $data['symbol'] . ';' . $data['http_source_id'] . ';' . $data['company_name'] . "\n";
         }
 
         // Return an instance of this class, including raw and csv report.
