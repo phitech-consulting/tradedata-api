@@ -1,6 +1,11 @@
 # Tradedata API
 *Phitech Consulting, Lucas Johnston, l.johnston@phitech.consulting, +31614340331*
 ## Changelog
+### Version: v1.2.8 [Added Weekend Stock Quote (WSQ) report]
+Date: 2024-02-04
+Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
+#### Description
+Added Weekend Stock Quotes (WSQ) report: A report that shows all stock-quotes that are for some f*** reason dated in the weekend.
 ### Version: v1.2.7 [Minor bugfix SQO-report]
 Date: 2024-02-04
 Collaborators: Lucas Johnston <l.johnston@phitech.consulting>

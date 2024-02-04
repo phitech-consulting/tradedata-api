@@ -2,8 +2,8 @@
 
 namespace app\Classes;
 
-use Illuminate\Database\Eloquent\Collection;
 use App\Classes\DatesHelper;
+use Illuminate\Database\Eloquent\Collection;
 use App\Classes\HttpSource;
 
 class Report
@@ -77,18 +77,40 @@ class Report
     }
 
 
-    // A report that shows all stock-quotes that are for some f*** reason dated in the weekend.
+    /**
+     * A report that shows all stock-quotes that are for some f*** reason dated in the weekend.
+     * @param $stock_quotes
+     * @return self
+     */
     public static function weekend_stock_quotes($stock_quotes)
     {
+
+        // Initialize some variables.
         $report_obj = new self();
         $report_obj->raw = [];
+
+        // Compose an array with some basic StockQuote metadata.
         foreach ($stock_quotes as $stock_quote) {
-            $date = $stock_quote->date;
-            $day_of_week = date('N', strtotime($date));
-            if ($day_of_week >= 6) {
-                $report_obj->raw[] = $stock_quote;
+            if(DatesHelper::is_weekend($stock_quote->date)) {
+                $report_obj->raw[] = [
+                    'id' => $stock_quote->id,
+                    'created_at' => $stock_quote->created_at,
+                    'updated_at' => $stock_quote->updated_at,
+                    'date' => $stock_quote->date,
+                    'symbol' => $stock_quote->symbol,
+                    'http_source_id' => $stock_quote->http_source_id,
+                    'company_name' => $stock_quote->company_name,
+                ];
             }
         }
+
+        // Generate a CSV based on the raw report.
+        $report_obj->csv = "id;created_at;updated_at;date;symbol;http_source_id;company_name\n";
+        foreach ($report_obj->raw as $data) {
+            $report_obj->csv .= $data['id'] . ';"' . $data['created_at'] . '";"' . $data['updated_at'] . '";' . $data['date'] . ';' . $data['symbol'] . ';' . $data['http_source_id'] . ';"' . $data['company_name'] . "\"\n";
+        }
+
+        // Return an instance of this class, including raw and csv report.
         return $report_obj;
     }
 }
