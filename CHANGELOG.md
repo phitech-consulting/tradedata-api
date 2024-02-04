@@ -1,6 +1,14 @@
 # Tradedata API
 *Phitech Consulting, Lucas Johnston, l.johnston@phitech.consulting, +31614340331*
 ## Changelog
+### Version: v1.2.6 [Date index and SQO report]
+Date: 2024-02-04
+Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
+#### Description
+This update should speed up the SQO-report, furthermore adds a few important fields to the SQO-report.
+#### Summary
+- Added index to _date_ field in _stock_quotes_ table for faster retrieval.
+- Added few fields to Stock Quotes Overview report to indicate counts of sources of the quotes.
 ### Version: v1.2.5 [Console command that writes Stock Quote Overview CSV to storage]
 Date: 2024-02-04
 Collaborators: Lucas Johnston <l.johnston@phitech.consulting>

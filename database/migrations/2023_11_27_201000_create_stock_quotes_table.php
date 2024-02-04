@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('stock_quotes', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->date('date');
+            $table->date('date'); // This should have been indexed. Make new migration and create index.
             $table->string('symbol', 16)->index();
             $table->unsignedBigInteger('http_source_id');
             $table->foreign('http_source_id')->references('id')->on('http_sources');
