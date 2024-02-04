@@ -225,3 +225,27 @@ Artisan::command('report:create_sqo {date_from?} {date_to?}', function ($date_fr
     $this->line("\n<fg=green>Stored Quotes Overview report created at: " . $path . "</>");
 
 })->purpose('Creates a Stored Quotes Overview report and saves it as a CSV file');
+
+
+
+Artisan::command('report:create_wsq {date_from?} {date_to?}', function ($date_from = null, $date_to = null) {
+
+    // Get Collection of StockQuotes between provided date_from and date_to.
+    $stock_quotes = \App\Classes\StockQuote::get_by_period(date_from: $date_from, date_to: $date_to);
+
+    // Generate report based on retrieved (lazy) collection.
+    $wsq_report = \App\Classes\Report::weekend_stock_quotes($stock_quotes);
+
+    // Compose filepath
+    $timestamp = \Carbon\Carbon::now()->format('Ymd_His');
+    $path = "storage/files/{$timestamp}_wsq.csv";
+
+    // Create and write the file.
+    $file = fopen($path, 'w');
+    fwrite($file, $wsq_report->csv);
+    fclose($file);
+
+    // Feed back to user.
+    $this->line("\n<fg=green>Weekend Stock Quotes report created at: " . $path . "</>");
+
+})->purpose('Creates a Weekend Stock Quotes report and saves it as a CSV file');
