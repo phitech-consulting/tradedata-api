@@ -7,9 +7,9 @@ use Carbon\Carbon;
 
 class TdaSelf
 {
-    const VERSION = "v1.2.5";
-    const LAST_EDIT_AT = "2024-02-04 01:00";
-    const LAST_EDIT = "Console command that writes Stock Quote Overview CSV to storage";
+    const VERSION = "v1.2.6";
+    const LAST_EDIT_AT = "2024-02-04 16:00";
+    const LAST_EDIT = "Date index and SQO report";
 
 
     /**
