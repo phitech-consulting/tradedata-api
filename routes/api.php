@@ -49,6 +49,7 @@ Route::prefix('toolbox')->group(function () {
  */
 Route::prefix('reporting')->group(function () {
     Route::get('stored-quotes-overview', [\App\Http\Controllers\ReportingController::class, 'stored_quotes_overview']);
+    Route::get('weekend-stock-quotes', [\App\Http\Controllers\ReportingController::class, 'weekend_stock_quotes']);
 });
 
 
