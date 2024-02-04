@@ -11,4 +11,9 @@ class HttpSource extends HttpSourceModel
         return HttpSource::where('reference', $reference)->first();
     }
 
+
+    public static function get_reference($id) {
+        return HttpSource::select('reference')->where('id', $id)->first()->reference;
+    }
+
 }
