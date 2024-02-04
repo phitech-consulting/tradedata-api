@@ -4,6 +4,7 @@ namespace app\Classes;
 
 use Illuminate\Database\Eloquent\Collection;
 use App\Classes\DatesHelper;
+use App\Classes\HttpSource;
 
 class Report
 {
@@ -30,7 +31,6 @@ class Report
             // Initialize date group if not already set.
             if(!isset($report_obj->raw[$date])) {
 
-
                 $report_obj->raw[$date] = [
                     'mean_fill_rate' => [],
                     'count_historic' => 0,
@@ -39,7 +39,7 @@ class Report
                     'count_source_srv1' => 0,
                     'count_source_iex_prd' => 0,
                     'count_source_unknown' => 0,
-                    'is_weekend' => DatesHelper::is_weekend($stock_quote->$date) ? "Y" : "N",
+                    'is_weekend' => DatesHelper::is_weekend($stock_quote->date) ? "Y" : "N",
                 ];
             }
 
