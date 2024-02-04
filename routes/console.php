@@ -129,12 +129,12 @@ Artisan::command('stock_quote:exists {date} {symbol} {source_ref}', function ($d
  */
 Artisan::command('tda:srv1', function () {
     dd(\DB::connection('srv1')->getPDO());
-        try {
-            \DB::connection('srv1')->getPDO();
-            echo \DB::connection()->getDatabaseName();
-        } catch (\Exception $e) {
-            echo 'None';
-        }
+    try {
+        \DB::connection('srv1')->getPDO();
+        echo \DB::connection()->getDatabaseName();
+    } catch (\Exception $e) {
+        echo 'None';
+    }
 })->purpose('Test the connection to srv1 database');
 
 
@@ -201,3 +201,27 @@ Artisan::command('import:one_quote {symbol} {date}', function ($symbol, $date) {
 Artisan::command('import:tst', function () {
     dd(\App\Classes\ImportSrv1Helper::import_1000());
 })->purpose('');
+
+
+
+Artisan::command('report:create_sqo {date_from?} {date_to?}', function ($date_from = null, $date_to = null) {
+
+    // Get Collection of StockQuotes between provided date_from and date_to.
+    $stock_quotes = \App\Classes\StockQuote::get_by_period(date_from: $date_from, date_to: $date_to);
+
+    // Generate report based on retrieved (lazy) collection.
+    $sqo_report = \App\Classes\Report::stored_quotes_overview($stock_quotes);
+
+    // Compose filepath
+    $timestamp = \Carbon\Carbon::now()->format('Ymd_His');
+    $path = "storage/files/{$timestamp}_sqo.csv";
+
+    // Create and write the file.
+    $file = fopen($path, 'w');
+    fwrite($file, $sqo_report->csv);
+    fclose($file);
+
+    // Feed back to user.
+    $this->line("\n<fg=green>Stored Quotes Overview report created at: " . $path . "</>");
+
+})->purpose('Creates a Stored Quotes Overview report and saves it as a CSV file');
