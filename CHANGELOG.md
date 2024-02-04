@@ -1,6 +1,11 @@
 # Tradedata API
 *Phitech Consulting, Lucas Johnston, l.johnston@phitech.consulting, +31614340331*
 ## Changelog
+### Version: v1.2.5 [Console command that writes Stock Quote Overview CSV to storage]
+Date: 2024-02-04
+Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
+#### Description
+This update contains a console command that does the same as the stock-quote-overview REST endpoint, only instead of returning it over HTTP, it stores the resulting CSV on storage. This is because for a 5GB dataset like on production, generating the report takes so long that the webserver times out.
 ### Version: v1.2.4 [Improved efficiency for Stored Quotes Overview report]
 Date: 2024-02-03
 Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
