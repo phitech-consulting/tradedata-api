@@ -101,6 +101,7 @@ Artisan::command('iex:download_by_type {type} {date?}', function ($type, $date =
     }
 })->purpose('Trigger download process for all quotes of given type (give optional date as YYYY-MM-DD)');
 
+
 /**
  * Commands below are for stock_quote: namespace.
  */
@@ -122,20 +123,6 @@ Artisan::command('stock_quote:exists {date} {symbol} {source_ref}', function ($d
 /**
  * Commands below are for tda: namespace.
  */
-
-
-/**
- * Command to test and display the connection to srv1 database.
- */
-Artisan::command('tda:srv1', function () {
-    dd(\DB::connection('srv1')->getPDO());
-    try {
-        \DB::connection('srv1')->getPDO();
-        echo \DB::connection()->getDatabaseName();
-    } catch (\Exception $e) {
-        echo 'None';
-    }
-})->purpose('Test the connection to srv1 database');
 
 
 /**
@@ -172,38 +159,13 @@ Artisan::command('tda:testmail {mail}', function ($mail) {
 
 
 /**
- * Commands below are for import: namespace.
+ * Commands below are for report: namespace.
  */
 
 
-Artisan::command('import:get_quote {symbol} {date?}', function ($symbol, $date) {
-    $helper = new App\Classes\ImportFromOldVersionHelper;
-    $stock_quote = $helper->get_srv1_quote($symbol, $date);
-    $this->line("\n<fg=green>" . print_r($stock_quote->toArray(), true) . "</>");
-})->purpose('Get full quote for one single symbol via IEX, give required date as YYYY-MM-DD)');
-
-
-Artisan::command('import:another_day', function () {
-    $helper = new App\Classes\ImportFromOldVersionHelper;
-    $result = $helper->import_another_day();
-    dd($result);
-})->purpose('');
-
-
-Artisan::command('import:one_quote {symbol} {date}', function ($symbol, $date) {
-    $helper = new App\Classes\ImportFromOldVersionHelper;
-    $result = $helper->import_one_quote($symbol, $date);
-    dd($result);
-})->purpose('');
-
-
-
-Artisan::command('import:tst', function () {
-    dd(\App\Classes\ImportSrv1Helper::import_1000());
-})->purpose('');
-
-
-
+/**
+ * Generate Stored Quotes Overview report.
+ */
 Artisan::command('report:create_sqo {date_from?} {date_to?}', function ($date_from = null, $date_to = null) {
 
     // Get Collection of StockQuotes between provided date_from and date_to.
@@ -227,7 +189,9 @@ Artisan::command('report:create_sqo {date_from?} {date_to?}', function ($date_fr
 })->purpose('Creates a Stored Quotes Overview report and saves it as a CSV file');
 
 
-
+/**
+ * Generates Weekend Stock Quotes report.
+ */
 Artisan::command('report:create_wsq {date_from?} {date_to?}', function ($date_from = null, $date_to = null) {
 
     // Get Collection of StockQuotes between provided date_from and date_to.
@@ -249,3 +213,42 @@ Artisan::command('report:create_wsq {date_from?} {date_to?}', function ($date_fr
     $this->line("\n<fg=green>Weekend Stock Quotes report created at: " . $path . "</>");
 
 })->purpose('Creates a Weekend Stock Quotes report and saves it as a CSV file');
+
+
+/**
+ * Commands below are for import: namespace.
+ */
+
+
+Artisan::command('import:get_quote {symbol} {date?}', function ($symbol, $date) {
+    $helper = new App\Classes\ImportFromOldVersionHelper;
+    $stock_quote = $helper->get_srv1_quote($symbol, $date);
+    $this->line("\n<fg=green>" . print_r($stock_quote->toArray(), true) . "</>");
+})->purpose('Get full quote for one single symbol via IEX, give required date as YYYY-MM-DD)');
+
+Artisan::command('import:another_day', function () {
+    $helper = new App\Classes\ImportFromOldVersionHelper;
+    $result = $helper->import_another_day();
+    dd($result);
+})->purpose('');
+
+Artisan::command('import:one_quote {symbol} {date}', function ($symbol, $date) {
+    $helper = new App\Classes\ImportFromOldVersionHelper;
+    $result = $helper->import_one_quote($symbol, $date);
+    dd($result);
+})->purpose('');
+
+Artisan::command('srv1:get_quote_by_id {id}', function ($id) {
+    $srv1 = new App\Classes\Srv1();
+    $srv1->get_quote_by_measurement_id();
+})->purpose('');
+
+Artisan::command('srv1:test', function () {
+    dd(\DB::connection('srv1')->getPDO());
+    try {
+        \DB::connection('srv1')->getPDO();
+        echo \DB::connection()->getDatabaseName();
+    } catch (\Exception $e) {
+        echo 'None';
+    }
+})->purpose('Test the connection to srv1 database');

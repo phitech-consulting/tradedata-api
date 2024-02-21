@@ -1,6 +1,9 @@
 # Tradedata API
 *Phitech Consulting, Lucas Johnston, l.johnston@phitech.consulting, +31614340331*
 ## Changelog
+### Version: v1.2.10 [Minor refactor]
+Date: 2024-02-21
+Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
 ### Version: v1.2.9 [Minor bugfix in WSQ]
 Date: 2024-02-04
 Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
