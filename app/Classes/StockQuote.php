@@ -88,4 +88,10 @@ class StockQuote extends StockQuoteModel
         // Return the LazyCollection instance.
         return $query->cursor();
     }
+
+
+    public function get_min_max_date($symbol) {
+        return StockQuote::selectRaw('MIN(date) as min_date, MAX(date) as max_date')->where("symbol", $symbol)->first();
+    }
+
 }

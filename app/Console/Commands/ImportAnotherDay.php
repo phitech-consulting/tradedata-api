@@ -2,25 +2,25 @@
 
 namespace App\Console\Commands;
 
-use App\Classes\ImportSrv1Helper;
+use App\Classes\ImportIexHistoricHelper;
 use App\Models\ErrorLogModel;
 use Illuminate\Console\Command;
 
-class Import1000 extends Command
+class ImportAnotherDay extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'import:1000';
+    protected $signature = 'import:another_day';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Import another 1000 StockQuotes from SRV1 and update the ledger';
+    protected $description = 'Import another day (one record in ImportPlan) StockQuotes from SRV1 and update the ledger';
 
     /**
      * Execute the console command.
@@ -30,7 +30,8 @@ class Import1000 extends Command
     public function handle()
     {
         try {
-            print_r(ImportSrv1Helper::import_1000());
+            $result = ImportIexHistoricHelper::import_another_day();
+            print_r($result);
             return Command::SUCCESS;
         } catch(\Exception $e) {
             ErrorLogModel::create([

@@ -29,26 +29,6 @@ class StockQuoteModel extends Model
         'week_52_high',
         'last_trade_time',
         'metadata',
-
-        // Testing / Development (today quote)
-//        'close_time',
-//        'delayed_price_time',
-//        'extended_price_time',
-//        'high_time',
-//        'iex_close_time',
-//        'iex_last_updated',
-//        'iex_open_time',
-//        'latest_time',
-//        'latest_update',
-//        'low_time',
-//        'open_time',
-
-
-        // Testing / Development (historic quote)
-//        'price_date',
-//        'date_date',
-//        'updated',
-//        'label',
     ];
 
     protected $casts = [

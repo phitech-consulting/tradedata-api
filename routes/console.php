@@ -1,6 +1,7 @@
 <?php
 
 use App\Mail\DebuggingMail;
+use App\Models\IexHistoricStockQuoteModel;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use App\Classes\StockQuote;
@@ -120,6 +121,17 @@ Artisan::command('stock_quote:exists {date} {symbol} {source_ref}', function ($d
 })->purpose('Check if a quote for a symbol for one date already exists in DB or not (give date as YYYY-MM-DD)');
 
 
+
+/**
+ *
+ */
+Artisan::command('stock_quote:get_min_max_date {symbol}', function ($symbol) {
+    $stock_quote = new StockQuote;
+    $range = $stock_quote->get_min_max_date($symbol);
+    dd($range);
+})->purpose('');
+
+
 /**
  * Commands below are for tda: namespace.
  */
@@ -220,35 +232,36 @@ Artisan::command('report:create_wsq {date_from?} {date_to?}', function ($date_fr
  */
 
 
-Artisan::command('import:get_quote {symbol} {date?}', function ($symbol, $date) {
-    $helper = new App\Classes\ImportFromOldVersionHelper;
-    $stock_quote = $helper->get_srv1_quote($symbol, $date);
-    $this->line("\n<fg=green>" . print_r($stock_quote->toArray(), true) . "</>");
-})->purpose('Get full quote for one single symbol via IEX, give required date as YYYY-MM-DD)');
-
-Artisan::command('import:another_day', function () {
-    $helper = new App\Classes\ImportFromOldVersionHelper;
-    $result = $helper->import_another_day();
-    dd($result);
-})->purpose('');
-
 Artisan::command('import:one_quote {symbol} {date}', function ($symbol, $date) {
-    $helper = new App\Classes\ImportFromOldVersionHelper;
+    $helper = new App\Classes\ImportIexHistoricHelper;
     $result = $helper->import_one_quote($symbol, $date);
     dd($result);
 })->purpose('');
 
-Artisan::command('srv1:get_quote_by_id {id}', function ($id) {
-    $srv1 = new App\Classes\Srv1();
-    $srv1->get_quote_by_measurement_id();
+
+
+
+
+
+
+Artisan::command('dates_helper:get_dates_sample {symbol}', function ($symbol) {
+    $stock_quote = new StockQuote;
+    $range = $stock_quote->get_min_max_date($symbol);
+
+//    $sample = \App\Classes\DatesHelper::get_dates_sample("2022-01-01", "2023-12-31", ['spaced_days' => 10]);
+//    $sample = \App\Classes\DatesHelper::get_dates_sample("2022-01-01", "2023-12-31", ['sample_size' => 315, "random" => true]);
+//    $sample = \App\Classes\DatesHelper::get_dates_sample("2022-01-01", "2023-12-31", ['sample_size' => 24, "random" => true]);
+//    $sample = \App\Classes\DatesHelper::get_dates_sample($range->min_date, $range->max_date, ['spaced_days' => 5]);
+    $sample = \App\Classes\DatesHelper::get_dates_sample($range->min_date, $range->max_date, ['sample_size' => 10]);
+        dd($sample);
+//    foreach($sample as $date) {
+//        echo $date . "\n";
+//    }
 })->purpose('');
 
-Artisan::command('srv1:test', function () {
-    dd(\DB::connection('srv1')->getPDO());
-    try {
-        \DB::connection('srv1')->getPDO();
-        echo \DB::connection()->getDatabaseName();
-    } catch (\Exception $e) {
-        echo 'None';
-    }
-})->purpose('Test the connection to srv1 database');
+
+
+
+Artisan::command('quality_check:test_one_reference {date} {symbol}', function ($date, $symbol) {
+    \App\Classes\QualityCheck::test_one_reference($date, $symbol);
+})->purpose('');

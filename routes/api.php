@@ -39,7 +39,6 @@ Route::prefix('settings')->group(function () {
  * but are used for testing and experimenting, for instance via Postman.
  */
 Route::prefix('toolbox')->group(function () {
-    Route::get('test-data-from-srv1', [\App\Http\Controllers\ToolboxController::class, 'test_get_srv1_data']);
     Route::get('/get-daterange', [\App\Http\Controllers\ToolboxController::class, 'get_daterange']);
 });
 

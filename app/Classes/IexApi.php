@@ -193,20 +193,6 @@ class IexApi
             $stock_quote->week_52_high = is_numeric($response['week52High']) ? round($response['week52High'], 3) : null;
             $stock_quote->metadata = $response;
 
-            // Testing / Development
-//            $stock_quote->close_time = self::miliseconds_to_date($response['closeTime']) ?: null;
-//            $stock_quote->delayed_price_time = self::miliseconds_to_date($response['delayedPriceTime']) ?: null;
-//            $stock_quote->extended_price_time = self::miliseconds_to_date($response['extendedPriceTime']) ?: null;
-//            $stock_quote->high_time = self::miliseconds_to_date($response['highTime']) ?: null;
-//            $stock_quote->iex_close_time = self::miliseconds_to_date($response['iexCloseTime']) ?: null;
-//            $stock_quote->iex_last_updated = self::miliseconds_to_date($response['iexLastUpdated']) ?: null;
-//            $stock_quote->iex_open_time = self::miliseconds_to_date($response['iexOpenTime']) ?: null;
-//            $stock_quote->latest_time = date("Y-m-d", strtotime($response['latestTime'])) ?: null;
-//            $stock_quote->latest_update = self::miliseconds_to_date($response['latestUpdate']) ?: null;
-//            $stock_quote->low_time = self::miliseconds_to_date($response['lowTime']) ?: null;
-//            $stock_quote->open_time = self::miliseconds_to_date($response['openTime']) ?: null;
-//            $stock_quote->last_trade_time = self::miliseconds_to_date($response['lastTradeTime']) ?: null;
-
             return $stock_quote;
         } else {
             throw new QuoteRetrieveException("No quote data was retrieved from IEX API for " . $symbol . " for date " . date("Y-m-d", strtotime("now")) . " (today).");
@@ -264,12 +250,6 @@ class IexApi
                 $stock_quote->week_52_low = null;
                 $stock_quote->week_52_high = null;
                 $stock_quote->metadata = $response;
-
-                // Testing / Development
-//                $stock_quote->price_date = date("Y-m-d", strtotime($response['priceDate'])) ?: null;
-//                $stock_quote->date_date = date("Y-m-d", strtotime($response['date'])) ?: null;
-//                $stock_quote->updated = self::miliseconds_to_date($response['updated']) ?: null;
-//                $stock_quote->label = date("Y-m-d", strtotime($response['label'])) ?: null;
 
                 return $stock_quote;
             } else {

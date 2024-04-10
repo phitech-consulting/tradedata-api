@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Classes\ImportSrv1Helper;
+use App\Classes\ImportIexHistoricHelper;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -14,27 +14,29 @@ class ImportOneQuote implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    protected $symbol;
+    protected $date;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(public $measurement) {}
+    public function __construct($symbol, $date) {
+        $this->symbol = $symbol;
+        $this->date = $date;
+    }
+
 
     /**
      * Execute the job.
-     *
      * @return void
+     * @throws \App\Exceptions\QuoteRetrieveException
+     * @throws \App\Exceptions\QuoteStoreException
      */
     public function handle()
     {
-        try {
-            $import_helper = new ImportSrv1Helper();
-            $import_helper->import_srv1_quote_by_id($this->measurement);
-        } finally {
-            $this->measurement->done = 1;
-            $this->measurement->save();
-        }
+        $import_helper = new ImportIexHistoricHelper();
+        $import_helper->import_one_quote($this->symbol, $this->date);
     }
 }
