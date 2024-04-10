@@ -1,6 +1,20 @@
 # Tradedata API
 *Phitech Consulting, Lucas Johnston, l.johnston@phitech.consulting, +31614340331*
 ## Changelog
+### Version: v1.3.0 [Bulk Import IEX Historic Stock Quotes]
+Date: 2024-04-10
+Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
+#### Description
+This version primarily contains logic for bulk importing StockQuotes from IEX, for later reference, and quality check on existing daily quotes. 
+#### Summary
+- Added get_dates_sample() to DatesHelper class for future quality checks. Supports for instance random samples.
+- Added QualityCheck class with some logic (not yet finished) to sample-wise cross-reference earlier imported StockQuotes (from the daily imports) with historic quotes. Because those (from the daily imports) seem to have some periods of bad data.
+- Deleted the Srv1 Helpers. ImportFromOldServerHelper became ImportIexHistoricHelper.
+- Deleted all, or most other traces of Srv1 logic and parameters.
+- Some minor refactors to (what is now) ImportIexHistoricHelper class to make it suitable for importing batches of IEX historic quotes.
+### Version: v1.2.10 [Minor refactor]
+Date: 2024-02-21
+Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
 ### Version: v1.2.9 [Minor bugfix in WSQ]
 Date: 2024-02-04
 Collaborators: Lucas Johnston <l.johnston@phitech.consulting>

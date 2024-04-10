@@ -1,6 +1,7 @@
 <?php
 
 use App\Mail\DebuggingMail;
+use App\Models\IexHistoricStockQuoteModel;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use App\Classes\StockQuote;
@@ -101,6 +102,7 @@ Artisan::command('iex:download_by_type {type} {date?}', function ($type, $date =
     }
 })->purpose('Trigger download process for all quotes of given type (give optional date as YYYY-MM-DD)');
 
+
 /**
  * Commands below are for stock_quote: namespace.
  */
@@ -119,23 +121,20 @@ Artisan::command('stock_quote:exists {date} {symbol} {source_ref}', function ($d
 })->purpose('Check if a quote for a symbol for one date already exists in DB or not (give date as YYYY-MM-DD)');
 
 
+
+/**
+ *
+ */
+Artisan::command('stock_quote:get_min_max_date {symbol}', function ($symbol) {
+    $stock_quote = new StockQuote;
+    $range = $stock_quote->get_min_max_date($symbol);
+    dd($range);
+})->purpose('');
+
+
 /**
  * Commands below are for tda: namespace.
  */
-
-
-/**
- * Command to test and display the connection to srv1 database.
- */
-Artisan::command('tda:srv1', function () {
-    dd(\DB::connection('srv1')->getPDO());
-    try {
-        \DB::connection('srv1')->getPDO();
-        echo \DB::connection()->getDatabaseName();
-    } catch (\Exception $e) {
-        echo 'None';
-    }
-})->purpose('Test the connection to srv1 database');
 
 
 /**
@@ -172,38 +171,13 @@ Artisan::command('tda:testmail {mail}', function ($mail) {
 
 
 /**
- * Commands below are for import: namespace.
+ * Commands below are for report: namespace.
  */
 
 
-Artisan::command('import:get_quote {symbol} {date?}', function ($symbol, $date) {
-    $helper = new App\Classes\ImportFromOldVersionHelper;
-    $stock_quote = $helper->get_srv1_quote($symbol, $date);
-    $this->line("\n<fg=green>" . print_r($stock_quote->toArray(), true) . "</>");
-})->purpose('Get full quote for one single symbol via IEX, give required date as YYYY-MM-DD)');
-
-
-Artisan::command('import:another_day', function () {
-    $helper = new App\Classes\ImportFromOldVersionHelper;
-    $result = $helper->import_another_day();
-    dd($result);
-})->purpose('');
-
-
-Artisan::command('import:one_quote {symbol} {date}', function ($symbol, $date) {
-    $helper = new App\Classes\ImportFromOldVersionHelper;
-    $result = $helper->import_one_quote($symbol, $date);
-    dd($result);
-})->purpose('');
-
-
-
-Artisan::command('import:tst', function () {
-    dd(\App\Classes\ImportSrv1Helper::import_1000());
-})->purpose('');
-
-
-
+/**
+ * Generate Stored Quotes Overview report.
+ */
 Artisan::command('report:create_sqo {date_from?} {date_to?}', function ($date_from = null, $date_to = null) {
 
     // Get Collection of StockQuotes between provided date_from and date_to.
@@ -227,7 +201,9 @@ Artisan::command('report:create_sqo {date_from?} {date_to?}', function ($date_fr
 })->purpose('Creates a Stored Quotes Overview report and saves it as a CSV file');
 
 
-
+/**
+ * Generates Weekend Stock Quotes report.
+ */
 Artisan::command('report:create_wsq {date_from?} {date_to?}', function ($date_from = null, $date_to = null) {
 
     // Get Collection of StockQuotes between provided date_from and date_to.
@@ -249,3 +225,43 @@ Artisan::command('report:create_wsq {date_from?} {date_to?}', function ($date_fr
     $this->line("\n<fg=green>Weekend Stock Quotes report created at: " . $path . "</>");
 
 })->purpose('Creates a Weekend Stock Quotes report and saves it as a CSV file');
+
+
+/**
+ * Commands below are for import: namespace.
+ */
+
+
+Artisan::command('import:one_quote {symbol} {date}', function ($symbol, $date) {
+    $helper = new App\Classes\ImportIexHistoricHelper;
+    $result = $helper->import_one_quote($symbol, $date);
+    dd($result);
+})->purpose('');
+
+
+
+
+
+
+
+Artisan::command('dates_helper:get_dates_sample {symbol}', function ($symbol) {
+    $stock_quote = new StockQuote;
+    $range = $stock_quote->get_min_max_date($symbol);
+
+//    $sample = \App\Classes\DatesHelper::get_dates_sample("2022-01-01", "2023-12-31", ['spaced_days' => 10]);
+//    $sample = \App\Classes\DatesHelper::get_dates_sample("2022-01-01", "2023-12-31", ['sample_size' => 315, "random" => true]);
+//    $sample = \App\Classes\DatesHelper::get_dates_sample("2022-01-01", "2023-12-31", ['sample_size' => 24, "random" => true]);
+//    $sample = \App\Classes\DatesHelper::get_dates_sample($range->min_date, $range->max_date, ['spaced_days' => 5]);
+    $sample = \App\Classes\DatesHelper::get_dates_sample($range->min_date, $range->max_date, ['sample_size' => 10]);
+        dd($sample);
+//    foreach($sample as $date) {
+//        echo $date . "\n";
+//    }
+})->purpose('');
+
+
+
+
+Artisan::command('quality_check:test_one_reference {date} {symbol}', function ($date, $symbol) {
+    \App\Classes\QualityCheck::test_one_reference($date, $symbol);
+})->purpose('');
