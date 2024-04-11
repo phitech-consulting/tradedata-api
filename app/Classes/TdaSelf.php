@@ -7,9 +7,9 @@ use Carbon\Carbon;
 
 class TdaSelf
 {
-    const VERSION = "v1.3.0";
+    const VERSION = "v1.3.1";
     const LAST_EDIT_AT = "2024-04-10 23:35";
-    const LAST_EDIT = "Bulk Import IEX Historic Stock Quotes";
+    const LAST_EDIT = "Ready for Acc-testing";
 
 
     /**
