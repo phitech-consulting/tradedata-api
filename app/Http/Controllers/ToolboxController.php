@@ -16,13 +16,4 @@ class ToolboxController extends Controller
         $dates_range = DatesHelper::createDateRangeArray($date_from, $date_to);
         return $dates_range;
     }
-
-
-    public function test_get_srv1_data() {
-        $data = DB::connection('srv1')->table('dwh_market_data.measurements')
-            ->orderBy('measurement_datetime', 'desc') // Replace 'created_at' with the column you want to order by
-            ->take(10)
-            ->get();
-        return $data;
-    }
 }
