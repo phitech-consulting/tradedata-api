@@ -222,15 +222,15 @@ class IexApi
                 $response = $response[0];
             }
 
-            // Force date from response into YYYY-MM-DD format.
-            try {
-                $trade_date = date("Y-m-d", strtotime($response['date'])); // Convert timestamp to date in YYYY-MM-DD format.
-            } catch (\Exception $e) {
-                throw new QuoteRetrieveException("Error converting timestamp to date for " . $symbol . " quote: " . $e->getMessage() . ". Full dataset: " . json_encode($response));
-            }
-
             // The if-statement below checks if $response is not empty
             if($response) {
+
+                // Force date from response into YYYY-MM-DD format.
+                try {
+                    $trade_date = date("Y-m-d", strtotime($response['date'])); // Convert timestamp to date in YYYY-MM-DD format.
+                } catch (\Exception $e) {
+                    throw new QuoteRetrieveException("Error converting timestamp to date for " . $symbol . " quote: " . $e->getMessage() . ". Full dataset: " . json_encode($response));
+                }
 
                 // Create a new StockQuote object and fill it with the data from the IEX API.
                 $stock_quote = new StockQuote();
