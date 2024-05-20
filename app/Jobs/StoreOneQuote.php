@@ -15,7 +15,7 @@ class StoreOneQuote implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $symbol;
-    protected $date;
+    protected $use_last_trading_day;
 
 
     /**
@@ -23,10 +23,10 @@ class StoreOneQuote implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(string $symbol, string $date = null)
+    public function __construct(string $symbol, bool $use_last_trading_day = null)
     {
         $this->symbol = $symbol;
-        $this->date = $date;
+        $this->use_last_trading_day = $use_last_trading_day;
     }
 
     /**
@@ -37,6 +37,6 @@ class StoreOneQuote implements ShouldQueue
     public function handle()
     {
         $iex_api = new IexApi();
-        $iex_api->store_one_quote($this->symbol, $this->date);
+        $iex_api->store_one_quote($this->symbol, $this->use_last_trading_day);
     }
 }

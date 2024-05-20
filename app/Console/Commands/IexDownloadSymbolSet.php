@@ -6,21 +6,21 @@ use App\Classes\IexApi;
 use App\Models\ErrorLogModel;
 use Illuminate\Console\Command;
 
-class DownloadSymbols extends Command
+class IexDownloadSymbolSet extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'iex:download_symbols';
+    protected $signature = 'iex:download_symbol_set';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Trigger download process of all IEX symbols today';
+    protected $description = 'Retrieve all symbols from IEX API and store into iex_historic_symbol_sets table';
 
     /**
      * Execute the console command.
@@ -31,8 +31,7 @@ class DownloadSymbols extends Command
     {
 
         /**
-         * Trigger download process of all symbols via IEX API. Retrieve symbols (about 12000) and then insert them
-         * to iex_historic_symbol_sets.
+         * Retrieve all symbols from IEX API, compress and then store into iex_historic_symbol_sets table.
          */
         try {
             $iex = new IexApi();

@@ -53,6 +53,30 @@ class SettingsSeeder extends Seeder
                 'description' => 'Crontab entry to determine frequency for automatic upserting of ExchangeProducts from latest IexSymbolSet.',
                 'active' => true,
             ],
+            [
+                'key' => 'iex_max_requests_per_second',
+                'value' => 5,
+                'description' => 'Sets the maximum number of requests per second for IEX API.',
+                'active' => true,
+            ],
+            [
+                'key' => 'iex_max_quotes_if_appdebug',
+                'value' => 10,
+                'description' => 'Sets the maximum number of StockQuotes to fetch in StockQuote->download_all_top_of_books() when APP_DEBUG is enabled.',
+                'active' => true,
+            ],
+            [
+                'key' => 'schedule_download_all_quotes',
+                'value' => 1,
+                'description' => 'Activate the cron for automatic downloading quotes for approx. 11000 US based ExchangeProducts of today from IEX API.',
+                'active' => true,
+            ],
+            [
+                'key' => 'frequency_download_all_quotes',
+                'value' => "30 20 * * 1-5",
+                'description' => 'Crontab entry to determine frequency for automatic downloading quotes for approx. 11000 US based ExchangeProducts of today from IEX API.',
+                'active' => true,
+            ],
         ];
 
         foreach ($settings as $setting) {

@@ -17,12 +17,7 @@ class HttpSourcesSeeder extends Seeder
     {
         $http_sources = [
             [
-                'reference' => 'iex_tst',
-                'name' => 'IEX Cloud API (test environment)',
-                'operator_id' => 1,
-            ],
-            [
-                'reference' => 'iex_prd',
+                'reference' => 'iex',
                 'name' => 'IEX Cloud API',
                 'operator_id' => 1,
             ],

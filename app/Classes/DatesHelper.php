@@ -2,6 +2,7 @@
 
 namespace App\Classes;
 
+use App\Models\ClosedDayModel;
 use \DateTime;
 use \Exception;
 
@@ -67,7 +68,7 @@ class DatesHelper
      *   'spaced_days': The number of days between each date in the output sample. Default is null.
      *   'sample_size': Desired sample size. If fraction is given, sample size is drawn as percentage of population.
      *   'random': Boolean indicating whether to return random dates. Default is false. (This only works for cases where you specify 'sample_size').
-     * 
+     *
      * @return array An array of dates in 'Y-m-d' format.
      * @throws Exception
      */
@@ -120,5 +121,91 @@ class DatesHelper
         }
 
         return $dates;
+    }
+
+
+    /**
+     * The function below converts a timestamp like "1701377614024" (milliseconds) into a timestamp like "1701377614" (seconds) and then into a date like "2021-01-29".
+     * @param $timestamp
+     * @return string|void
+     */
+    public static function miliseconds_to_date($timestamp) {
+        if($timestamp) { // Check if $timestamp is not null-ish.
+            if(ctype_digit($timestamp)) {
+                return date("Y-m-d", substr($timestamp, 0, 10)); // Take first 10 characters of timestamp (seconds since epoch), then compose Y-m-d date.
+            }
+        }
+
+        return null;
+    }
+
+
+    /**
+     * Get an adjusted date that is the current date if it's a weekday and not in the disallowed dates array. If the
+     * current date is a weekend or in marked as closed day in database, it returns the most recent previous weekday
+     * that is not a closed day.
+     * @return string // The adjusted date in YYYY-MM-DD format.
+     */
+    public static function get_first_previous_trading_date() {
+
+        // Get the current date
+        $currentDate = date("Y-m-d", strtotime("-1 day"));
+
+        // Get the current day of the week (0 for Sunday, 6 for Saturday)
+        $dayOfWeek = date("w", strtotime($currentDate));
+
+        // If today is Saturday (6) or Sunday (0), find the previous weekday
+        if ($dayOfWeek == 0) {
+            // If it's Sunday, subtract 2 days to get to Friday
+            $adjustedDate = date("Y-m-d", strtotime($currentDate . "-2 days"));
+        } elseif ($dayOfWeek == 6) {
+            // If it's Saturday, subtract 1 day to get to Friday
+            $adjustedDate = date("Y-m-d", strtotime($currentDate . "-1 day"));
+        } else {
+            // If it's a weekday, use today's date
+            $adjustedDate = $currentDate;
+        }
+
+        // If the adjusted date is a closed day, find the previous approved day
+        while (self::is_closed_day($adjustedDate)) {
+            // Move to the previous day
+            $adjustedDate = date("Y-m-d", strtotime("$adjustedDate -1 day"));
+
+            // Ensure the new date is not a weekend
+            $dayOfWeek = date("w", strtotime($adjustedDate));
+            if ($dayOfWeek == 0) {
+                // If it's Sunday, subtract 2 days to get to Friday
+                $adjustedDate = date("Y-m-d", strtotime("$adjustedDate -2 days"));
+            } elseif ($dayOfWeek == 6) {
+                // If it's Saturday, subtract 1 day to get to Friday
+                $adjustedDate = date("Y-m-d", strtotime("$adjustedDate -1 day"));
+            }
+        }
+
+        return $adjustedDate;
+    }
+
+
+    /**
+     * Check if a given date is a closed day.
+     * @param string $date // The date to check in YYYY-MM-DD format.
+     * @return bool // True if the date is a closed day, false otherwise.
+     */
+    public static function is_closed_day($date) {
+        $closedDays = self::get_closed_days_array();
+        return in_array($date, $closedDays);
+    }
+
+
+    /**
+     * Get an array of closed days from the 'closed_days' table.
+     * @return array // An array of closed days in YYYY-MM-DD format.
+     */
+    public static function get_closed_days_array() {
+        // Retrieve all rows from the 'closed_days' table
+        $closedDays = ClosedDayModel::all();
+
+        // Extract the 'date' column values and return as an array
+        return $closedDays->pluck('date')->toArray();
     }
 }
