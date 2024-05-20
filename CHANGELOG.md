@@ -1,7 +1,7 @@
 # Tradedata API
 *Phitech Consulting, Lucas Johnston, l.johnston@phitech.consulting, +31614340331*
 ## Changelog
-### Version: v1.4.0 beta2 [New IEX API]
+### Version: v1.4.0 [New IEX API]
 Date: 2024-05-20
 Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
 #### Description
@@ -29,6 +29,9 @@ Updates to make TDA compatible with new IEX API.
 - Set in settings table: _frequency_retrieve_iex_symbol_set_ to value "0 16 * * 1-5".
 - Set in settings table: _frequency_insert_exchange_products_from_iex_ to value "15 16 * * 1-5".
 - Insert all 2024 NYSE closed dates into the closed_days table.
+### Version: v1.4.0 beta2 [New IEX API]
+Date: 2024-05-20
+Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
 ### Version: v1.4.0 beta1 [New IEX API]
 Date: 2024-05-20
 Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
