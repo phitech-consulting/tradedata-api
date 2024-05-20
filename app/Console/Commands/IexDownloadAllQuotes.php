@@ -6,21 +6,21 @@ use App\Models\ErrorLogModel;
 use Illuminate\Console\Command;
 use App\Classes\IexApi;
 
-class DownloadAllCsQuotesToday extends Command
+class IexDownloadAllQuotes extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'iex:download_all_cs_quotes_today';
+    protected $signature = 'iex:download_all_quotes {use_last_trading_day?}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Trigger download process for all Common Stock (cs) quotes today (uses same method as \'iex:download_by_type\')';
+    protected $description = 'Trigger download process for all quotes today, store into stock_quotes table';
 
     /**
      * Execute the console command.
@@ -29,9 +29,17 @@ class DownloadAllCsQuotesToday extends Command
      */
     public function handle()
     {
+
+        // Get the optional user provided symbol_set_id parameter.
+        $use_last_trading_day = $this->argument('use_last_trading_day');
+
+        // Convert the integer flag to a boolean value.
+        $use_last_trading_day = $use_last_trading_day == 1;
+
         try {
             $iex_api = new IexApi();
-            echo $iex_api->download_by_type("cs");
+            $process_data = $iex_api->download_all_quotes($use_last_trading_day);
+            $this->line("\n<fg=green>" . print_r($process_data, true) . "</>");
             return Command::SUCCESS;
         } catch(\Exception $e) {
             ErrorLogModel::create([

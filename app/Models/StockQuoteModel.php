@@ -29,6 +29,8 @@ class StockQuoteModel extends Model
         'week_52_high',
         'last_trade_time',
         'metadata',
+        'type',
+        'sector',
     ];
 
     protected $casts = [

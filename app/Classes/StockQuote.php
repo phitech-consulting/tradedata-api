@@ -3,6 +3,7 @@
 namespace app\Classes;
 
 use App\Classes\HttpSource;
+use App\Exceptions\QuoteRetrieveException;
 use App\Models\StockQuoteModel;
 
 class StockQuote extends StockQuoteModel
@@ -92,6 +93,33 @@ class StockQuote extends StockQuoteModel
 
     public function get_min_max_date($symbol) {
         return StockQuote::selectRaw('MIN(date) as min_date, MAX(date) as max_date')->where("symbol", $symbol)->first();
+    }
+
+
+    /**
+     * Get quote for one single symbol.
+     * @param $symbol
+     * @param $date
+     * @return StockQuote|void
+     * @throws QuoteRetrieveException
+     */
+    public function get_quote($symbol, $date = null) {
+
+        // If date is given, convert to YYYY-MM-DD format, otherwise set to null.
+        $date = $date ? date('Y-m-d', strtotime($date)) : null;
+
+        // Set today's date in YYYY-MM-DD format.
+        $now = date("Y-m-d", strtotime(now()));
+
+        // If date is not given, set to today's date.
+        $date = $date ?? $now;
+
+        // Return quote based on date.
+        if($date > $now) {
+            throw new QuoteRetrieveException("Cannot get stock quote for future date, unfortunately.");
+        } else {
+            return StockQuote::where('date', $date)->where('symbol', $symbol)->first();
+        }
     }
 
 }
