@@ -1,6 +1,29 @@
 # Tradedata API
 *Phitech Consulting, Lucas Johnston, l.johnston@phitech.consulting, +31614340331*
 ## Changelog
+### Version: v1.4.0 beta1 [New IEX API]
+Date: 2024-05-20
+Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
+#### Description
+Updates to make TDA compatible with new IEX API.
+#### Summary
+- Added index to failed_at column in failed_jobs table for faster lookup.
+- Made 'duplicate_figis' column nullable in iex_historic_symbol_sets table.
+- Removed 'figi' unique index in exchange_products.
+- Refactored \App\Classes\IexApi class.
+- Refactored console commands.
+- Various database and model changes for compatibility with new IEX API.
+- Updated seeders.
+- Added method in DatesHelper to determine whether day is marked as closed day in for instance NYSE. Works with closed_days table.
+- Added method in DatesHelper to get first previous opened day which is the first previous non-weekend, non-closed day.
+#### Deploy instructions
+- Run ```php artisan migrate```
+- Delete all old IEX API data from .env.
+- Place new IEX API data in .env, specifically, these three variables: _IEXV_API_KEY=""_, _IEXV_API_SECRET=""_, _IEXV_BASE_URL=""_.
+- Add record to http_sources table with reference: "iex".
+- Change in settings table: _schedule_download_all_cs_quotes_today_ becomes _schedule_download_all_quotes_.
+- Change in settings table: _frequency_download_all_cs_quotes_today_ becomes _frequency_download_all_quotes_.
+- Insert all 2024 NYSE closed dates into the closed_days table.
 ### Version: v1.3.1 [Ready for Acc-testing]
 Date: 2024-04-11
 Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
