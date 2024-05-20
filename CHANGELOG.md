@@ -1,7 +1,7 @@
 # Tradedata API
 *Phitech Consulting, Lucas Johnston, l.johnston@phitech.consulting, +31614340331*
 ## Changelog
-### Version: v1.4.0 beta1 [New IEX API]
+### Version: v1.4.0 beta2 [New IEX API]
 Date: 2024-05-20
 Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
 #### Description
@@ -18,12 +18,20 @@ Updates to make TDA compatible with new IEX API.
 - Added method in DatesHelper to get first previous opened day which is the first previous non-weekend, non-closed day.
 #### Deploy instructions
 - Run ```php artisan migrate```
+- Run ```php artisan queue:restart```
 - Delete all old IEX API data from .env.
 - Place new IEX API data in .env, specifically, these three variables: _IEXV_API_KEY=""_, _IEXV_API_SECRET=""_, _IEXV_BASE_URL=""_.
 - Add record to http_sources table with reference: "iex".
 - Change in settings table: _schedule_download_all_cs_quotes_today_ becomes _schedule_download_all_quotes_.
 - Change in settings table: _frequency_download_all_cs_quotes_today_ becomes _frequency_download_all_quotes_.
+- Change in settings table: _schedule_upsert_exchange_products_from_iex_ becomes _schedule_insert_exchange_products_from_iex_.
+- Change in settings table: _frequency_upsert_exchange_products_from_iex_ becomes _frequency_insert_exchange_products_from_iex_.
+- Set in settings table: _frequency_retrieve_iex_symbol_set_ to value "0 16 * * 1-5".
+- Set in settings table: _frequency_insert_exchange_products_from_iex_ to value "15 16 * * 1-5".
 - Insert all 2024 NYSE closed dates into the closed_days table.
+### Version: v1.4.0 beta1 [New IEX API]
+Date: 2024-05-20
+Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
 ### Version: v1.3.1 [Ready for Acc-testing]
 Date: 2024-04-11
 Collaborators: Lucas Johnston <l.johnston@phitech.consulting>

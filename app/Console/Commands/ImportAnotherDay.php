@@ -6,6 +6,16 @@ use App\Classes\ImportIexHistoricHelper;
 use App\Models\ErrorLogModel;
 use Illuminate\Console\Command;
 
+
+/**
+ *
+ * TO BE DELETED.
+ * NOT USED.
+ * ALL IMPORTS ARE FINISHED NOW.
+ *
+ */
+
+
 class ImportAnotherDay extends Command
 {
     /**

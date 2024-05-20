@@ -6,7 +6,7 @@ use App\Models\ErrorLogModel;
 use Illuminate\Console\Command;
 use App\Classes\IexApi;
 
-class IexDownloadAllQuotesToday extends Command
+class IexDownloadAllQuotes extends Command
 {
     /**
      * The name and signature of the console command.

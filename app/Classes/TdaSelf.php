@@ -7,8 +7,8 @@ use Carbon\Carbon;
 
 class TdaSelf
 {
-    const VERSION = "v1.4.0 beta1";
-    const LAST_EDIT_AT = "2024-05-20 12:15";
+    const VERSION = "v1.4.0 beta2";
+    const LAST_EDIT_AT = "2024-05-20 12:58";
     const LAST_EDIT = "New IEX API";
 
 

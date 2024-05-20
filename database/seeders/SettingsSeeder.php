@@ -42,13 +42,13 @@ class SettingsSeeder extends Seeder
 
             ],
             [
-                'key' => 'schedule_upsert_exchange_products_from_iex',
+                'key' => 'schedule_insert_exchange_products_from_iex',
                 'value' => 1,
                 'description' => 'Activate the cron for automatic upserting of ExchangeProducts from latest IexSymbolSet.',
                 'active' => true,
             ],
             [
-                'key' => 'frequency_upsert_exchange_products_from_iex',
+                'key' => 'frequency_insert_exchange_products_from_iex',
                 'value' => '15 9 * * *',
                 'description' => 'Crontab entry to determine frequency for automatic upserting of ExchangeProducts from latest IexSymbolSet.',
                 'active' => true,
@@ -73,7 +73,7 @@ class SettingsSeeder extends Seeder
             ],
             [
                 'key' => 'frequency_download_all_quotes',
-                'value' => "30 20 * * 1-5",
+                'value' => "30 21 * * 1-5",
                 'description' => 'Crontab entry to determine frequency for automatic downloading quotes for approx. 11000 US based ExchangeProducts of today from IEX API.',
                 'active' => true,
             ],

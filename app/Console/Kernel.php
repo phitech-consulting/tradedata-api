@@ -15,20 +15,17 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         if(config('tda.schedule_retrieve_iex_symbol_set') == 1) {
-            $schedule->command('iex:download_symbols')->cron(config('tda.frequency_retrieve_iex_symbol_set'));
+            $schedule->command('iex:download_symbol_set')->cron(config('tda.frequency_retrieve_iex_symbol_set'));
         }
 
-        if(config('tda.schedule_upsert_exchange_products_from_iex') == 1) {
-            $schedule->command('exchange_product:upsert_iex_symbol_set')->cron(config('tda.frequency_upsert_exchange_products_from_iex'));
+        if(config('tda.schedule_insert_exchange_products_from_iex') == 1) {
+            $schedule->command('exchange_product:insert_iex_symbol_set')->cron(config('tda.frequency_insert_exchange_products_from_iex'));
         }
 
-        if(config('tda.schedule_download_all_cs_quotes_today') == 1) {
-            $schedule->command('iex:download_all_cs_quotes_today')->cron(config('tda.frequency_download_all_cs_quotes_today'));
+        if(config('tda.schedule_download_all_quotes') == 1) {
+            $schedule->command('iex:download_all_cs_quotes_today')->cron(config('tda.frequency_download_all_quotes'));
         }
 
-        if(config('tda.schedule_import_iex_historic') == 1) {
-            $schedule->command('import:another_day')->cron(config('tda.frequency_import_iex_historic'));
-        }
     }
 
     /**
