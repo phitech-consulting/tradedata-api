@@ -1,6 +1,14 @@
 # Tradedata API
 *Phitech Consulting, Lucas Johnston, l.johnston@phitech.consulting, +31614340331*
 ## Changelog
+### Version: v1.4.1 [Improved routes and controllers]
+Date: 2024-05-24
+Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
+#### Description
+Update to improve routes and controllers and their consistent implementation.
+#### Summary
+- Improved routes and controllers for IexHistoricSymbolSets, ExchangeProducts and StockQuotes. Still needs work though.
+- Made the Settings routes an apiResource for better consistency.
 ### Version: v1.4.0 [New IEX API]
 Date: 2024-05-20
 Collaborators: Lucas Johnston <l.johnston@phitech.consulting>
