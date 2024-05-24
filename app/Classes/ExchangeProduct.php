@@ -11,7 +11,6 @@ use Carbon\Carbon;
 class ExchangeProduct extends ExchangeProductModel
 {
 
-
     /**
      * Upsert IexSymbolSet to exchange_products table.
      * @param IexHistoricSymbolSetModel|null $iex_symbol_set
@@ -146,6 +145,7 @@ class ExchangeProduct extends ExchangeProductModel
         // Get all columns from exchange_products table.
         return ExchangeProductModel::get();
     }
+
 
     /**
      * Helper method to retrieve just the name, given a symbol.

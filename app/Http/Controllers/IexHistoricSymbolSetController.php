@@ -15,20 +15,14 @@ class IexHistoricSymbolSetController extends Controller
      */
     public function index()
     {
-        // Not to implement
-        return response("", 404);
+        $historic_symbol_sets = IexHistoricSymbolSetModel::select('id', 'created_at', 'updated_at', 'date', 'metadata', 'duplicate_figis')->get();
+        if($historic_symbol_sets) {
+            return $historic_symbol_sets->toJson();
+        } else {
+            return response("No IexHistoricSymbolSet records found.", 404);
+        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * Route: GET /api/resources/iex-historic-symbol-sets/create
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        // Not to implement
-        return response("", 404);
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -42,6 +36,7 @@ class IexHistoricSymbolSetController extends Controller
         return response("", 404);
     }
 
+
     /**
      * Display the specified resource.
      * Route: GET /api/resources/iex-historic-symbol-sets/{id}
@@ -50,25 +45,18 @@ class IexHistoricSymbolSetController extends Controller
      */
     public function show(IexHistoricSymbolSetModel $iexHistoricSymbolSet)
     {
-        return response()->json($iexHistoricSymbolSet);
+        if($iexHistoricSymbolSet) {
+            return response()->json($iexHistoricSymbolSet);
+        } else {
+            return response("IexHistoricSymbolSet not found.", 404);
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * Route: GET /api/resources/iex-historic-symbol-sets/{id}/edit
-     * @param  \App\Models\IexHistoricSymbolSetModel  $iexHistoricSymbolSet
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(IexHistoricSymbolSetModel $iexHistoricSymbolSet)
-    {
-        // Not to implement
-        return response("", 404);
-    }
 
     /**
      * Update the specified resource in storage.
      * Route: UPDATE /api/resources/iex-historic-symbol-sets/{id}
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @param  \App\Models\IexHistoricSymbolSetModel  $iexHistoricSymbolSet
      * @return \Illuminate\Http\Response
      */
@@ -78,6 +66,7 @@ class IexHistoricSymbolSetController extends Controller
         return response("", 404);
     }
 
+
     /**
      * Remove the specified resource from storage.
      * DELETE /api/resources/iex-historic-symbol-sets/{id}
@@ -86,7 +75,14 @@ class IexHistoricSymbolSetController extends Controller
      */
     public function destroy(IexHistoricSymbolSetModel $iexHistoricSymbolSet)
     {
-        // Not to implement
-        return response("", 404);
+        if($iexHistoricSymbolSet) {
+            if($iexHistoricSymbolSet->delete()) {
+                return response("IexHistoricSymbolSet deleted.", 200);
+            } else {
+                return response("IexHistoricSymbolSet not deleted.", 200);
+            }
+        } else {
+            return response("IexHistoricSymbolSet not found.", 404);
+        }
     }
 }

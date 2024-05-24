@@ -20,7 +20,7 @@ class IexController extends Controller
 
 
     /**
-     * Return full quote for one single symbol via IEX (optionally give date as YYYYMMDD.
+     * Return full quote for one single symbol via IEX.
      * Does not do any database operations.
      * Endpoint: GET /api/iex/quote
      * @param $symbol
@@ -30,6 +30,6 @@ class IexController extends Controller
      */
     public function get_quote(Request $request) {
         $iex_api = new \App\Classes\IexApi();
-        return response($iex_api->get_quote($request->symbol, $request->date));
+        return response($iex_api->get_quote($request->symbol));
     }
 }

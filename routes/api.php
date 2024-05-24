@@ -26,12 +26,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
  */
 Route::prefix('settings')->group(function () {
     Route::get('/about', [SettingsController::class, 'about']);
-    Route::post('/', [SettingsController::class, 'addSetting']);
-    Route::put('/{id}', [SettingsController::class, 'editSetting']);
-    Route::delete('/{id}', [SettingsController::class, 'deleteSetting']);
-    Route::get('/{key}', [SettingsController::class, 'getSetting']);
-    Route::get('/', [SettingsController::class, 'getAllSettings']);
 });
+Route::apiResource('settings', SettingsController::class); // Keep the apiResource after the 'settings prefix'. Routes in the settings prefix might not function otherwise.
 
 
 /**
@@ -61,24 +57,12 @@ Route::prefix('iex')->group(function () {
 });
 
 
-// All endpoints for Symbols
-Route::prefix('symbols')->group(function () {
-    Route::get('', [\App\Http\Controllers\ExchangeProductController::class, 'index']);
-    Route::get('{symbol}', [\App\Http\Controllers\ExchangeProductController::class, 'show']);
-});
-
 /**
  * Below: The apiResource endpoints make CRUD operations available for other systems.
  * For instance: getting an overview of all symbols, or getting details for one quote.
  */
-
-// All endpoints for Quotes
-Route::apiResource('quotes', \App\Http\Controllers\StockQuoteController::class);
-
-
-/**
- *
- */
 Route::prefix('resources')->group(function () {
-    Route::resource('iex-historic-symbol-sets', \App\Http\Controllers\IexHistoricSymbolSetController::class);
+    Route::apiResource('iex-historic-symbol-sets', \App\Http\Controllers\IexHistoricSymbolSetController::class);
+    Route::apiResource('exchange-products', \App\Http\Controllers\ExchangeProductController::class);
+    Route::apiResource('stock-quotes', \App\Http\Controllers\StockQuoteController::class);
 });
