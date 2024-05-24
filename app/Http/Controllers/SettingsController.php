@@ -8,9 +8,10 @@ use Illuminate\Http\Request;
 
 class SettingsController extends Controller
 {
+
     /**
      * Return some basic (non security sensitive) settings and version data.
-     * Endpoint: GET /api/settings/about
+     * Route: GET /api/settings/about
      * @return mixed
      */
     public function about() {
@@ -19,12 +20,24 @@ class SettingsController extends Controller
 
 
     /**
-     * Add one setting as defined in API input.
-     * Endpoint: POST /api/settings
-     * @param Request $request
-     * @return mixed
+     * Display a listing of the resource.
+     * Route: GET /api/settings
+     * @return \Illuminate\Http\Response
      */
-    public function addSetting(Request $request)
+    public function index()
+    {
+        $settings = SettingModel::all();
+        return response()->json($settings, 200);
+    }
+
+
+    /**
+     * Store a newly created resource in storage.
+     * Route: POST /api/settings
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
     {
         try {
             $validatedData = $request->validate([
@@ -44,16 +57,30 @@ class SettingsController extends Controller
 
 
     /**
-     * Edit one existing setting by ID, defined in API input.
-     * Endpoint: PUT /api/settings/{id}
-     * @param Request $request
-     * @param $id
-     * @return mixed
+     * Display the specified resource.
+     * Route: GET /api/settings/{id}
+     * @param  \App\Models\SettingModel  $setting
+     * @return \Illuminate\Http\Response
      */
-    public function editSetting(Request $request, $id)
+    public function show(SettingModel $setting)
     {
-        $setting = SettingModel::findOrFail($id);
+        if (!$setting) {
+            return response()->json(['message' => 'Setting not found'], 404);
+        }
 
+        return response()->json($setting, 200);
+    }
+
+
+    /**
+     * Update the specified resource in storage.
+     * Route: PUT /api/settings/{id}
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\SettingModel  $setting
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, SettingModel $setting)
+    {
         $validatedData = $request->validate([
             'value' => 'nullable',
             'description' => 'nullable',
@@ -67,47 +94,15 @@ class SettingsController extends Controller
 
 
     /**
-     * Delete one setting by ID.
-     * Endpoint: DELETE /api/settings/{id}
-     * @param $id
-     * @return mixed
+     * Remove the specified resource from storage.
+     * Route: DELETE /api/settings/{id}
+     * @param  \App\Models\SettingModel  $setting
+     * @return \Illuminate\Http\Response
      */
-    public function deleteSetting($id)
+    public function destroy(SettingModel $setting)
     {
-        $setting = SettingModel::findOrFail($id);
         $setting->delete();
 
         return response()->json(null, 204);
-    }
-
-
-    /**
-     * Get one specific setting by ID.
-     * Endpoint: GET /api/settings/{id}
-     * @param $key
-     * @return mixed
-     */
-    public function getSetting($id)
-    {
-        $setting = SettingModel::findOrFail($id);
-
-        if (!$setting) {
-            return response()->json(['message' => 'Setting not found'], 404);
-        }
-
-        return response()->json($setting, 200);
-    }
-
-
-    /**
-     * Get all settings.
-     * Endpoint: GET /api/settings
-     * @return mixed
-     */
-    public function getAllSettings()
-    {
-        $settings = SettingModel::all();
-
-        return response()->json($settings, 200);
     }
 }

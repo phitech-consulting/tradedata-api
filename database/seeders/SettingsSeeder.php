@@ -44,13 +44,13 @@ class SettingsSeeder extends Seeder
             [
                 'key' => 'schedule_insert_exchange_products_from_iex',
                 'value' => 1,
-                'description' => 'Activate the cron for automatic upserting of ExchangeProducts from latest IexSymbolSet.',
+                'description' => 'Activate the cron for automatic inserting of ExchangeProducts from latest IexSymbolSet.',
                 'active' => true,
             ],
             [
                 'key' => 'frequency_insert_exchange_products_from_iex',
                 'value' => '15 9 * * *',
-                'description' => 'Crontab entry to determine frequency for automatic upserting of ExchangeProducts from latest IexSymbolSet.',
+                'description' => 'Crontab entry to determine frequency for automatic inserting of ExchangeProducts from latest IexSymbolSet.',
                 'active' => true,
             ],
             [
@@ -62,7 +62,7 @@ class SettingsSeeder extends Seeder
             [
                 'key' => 'iex_max_quotes_if_appdebug',
                 'value' => 10,
-                'description' => 'Sets the maximum number of StockQuotes to fetch in StockQuote->download_all_top_of_books() when APP_DEBUG is enabled.',
+                'description' => 'Sets the maximum number of StockQuotes to fetch in IexApi->download_all_quotes() when APP_DEBUG is enabled.',
                 'active' => true,
             ],
             [
